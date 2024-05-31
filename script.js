@@ -26,7 +26,7 @@ tsParticles.load("tsparticles", {
         }
       },
       "opacity": {
-        "value": 1,
+        "value": 0.9,
         "random": false,
         "anim": {
           "enable": false,
