@@ -1,0 +1,35 @@
+body {
+    background-color: rgba(255, 206, 163, 1);
+    background-image: linear-gradient(342deg, rgba(255, 206, 163, 1) 29%, rgba(254, 254, 255, 1) 94%);
+}
+
+@font-face {
+    font-family: 'RockoFLF Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('RockoFLF Regular'), url('RockoFLF.woff') format('woff');
+}
+    
+
+@font-face {
+    font-family: 'RockoFLF Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('RockoFLF Bold'), url('RockoFLF-Bold.woff') format('woff');
+}
+    
+
+@font-face {
+    font-family: 'RockoUltraFLF Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('RockoUltraFLF Regular'), url('RockoUltraFLF.woff') format('woff');
+}
+    
+
+@font-face {
+    font-family: 'RockoUltraFLF Bold';
+    font-style: normal;
+    font-weight: normal;
+    src: local('RockoUltraFLF Bold'), url('RockoUltraFLF-Bold.woff') format('woff');
+}
