@@ -13,6 +13,26 @@ document.addEventListener("DOMContentLoaded", function () {
     'Christmas_Outfit_Icon.png', 'Tuxedo_Poppo_Icon.png', 'Chocolate_Icon.png', 'School_Outfit_Icon.png', 'White_Chocolate_Icon.png',
     'Dark_Chocolate_Icon.png'];
 
+    const musicBtn = document.getElementById("musicOption");
+    const song = new Audio('./audio/mainMenu.mp3');
+    song.volume = 0.5;
+    song.loop = true;
+    let musicOn = 0;
+
+    musicBtn.addEventListener("click", () => {
+        if (musicOn == 0) {
+            song.play();
+            musicOn = 1;
+
+            musicBtn.textContent = 'Music Enabled';
+        } else {
+            song.pause();
+            musicOn = 0;
+
+            musicBtn.textContent = 'Music Disabled';
+        }
+    });
+
     let selChar = 'Marc';
     let selCharID = 'marc';
     let currentPose = '00';
