@@ -22,6 +22,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const particlesBtn = document.getElementById("particlesBtn");
     let particlesOn = 0;
 
+    const sfxBtn = document.getElementById("sfxBtn");
+    let sfxOn = 0;
+
+    sfxBtn.addEventListener("click", () => {
+        if (sfxOn == 0) {
+            sfxOn = 1;
+            sfxBtn.textContent = "SFX Disabled";
+        } else {
+            sfxOn = 0;
+            sfxBtn.textContent = "SFX Enabled";
+        }
+    });
+
     particlesBtn.addEventListener("click", () => {
         if (particlesOn == 0) {
             stopParticles();
@@ -80,7 +93,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function playAudio(url) {
-        new Audio(url).play();
+        if (sfxOn == 0) {
+            new Audio(url).play();
+        }
     }
 
     changeCharBtn.addEventListener("click", () => {
