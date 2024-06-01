@@ -5,6 +5,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const changeCharBtn = document.getElementById("changeCharBtn");
     const btnSfx = "./audio/se_DECISION.WAV";
 
+    const windowBtns = document.querySelectorAll(".windowBtn");
+
+    windowBtns.forEach((button) => {
+        const dataWindow = button.getAttribute("data-window");
+        const targetWindow = document.getElementById(dataWindow);
+
+        button.addEventListener("click", () => {
+            playAudio(btnSfx);
+            targetWindow.classList.toggle("hidden");
+            targetWindow.classList.toggle("flex");
+        })
+    })
+
     function playAudio(url) {
         new Audio(url).play();
     }
@@ -13,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function () {
         playAudio(btnSfx);
     });
 
-    
     function imageExists(imageUrl, callback) {
         const img = new Image();
         img.onload = function () {
