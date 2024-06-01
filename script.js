@@ -108,3 +108,20 @@ tsParticles.load("tsparticles", {
     },
     "retina_detect": true
  });
+
+// const currentChar = document.getElementById("currentChar");
+// let isLoop = 0;
+
+// function characterBounce() {
+//     if (isLoop == 0) {
+//         currentChar.classList.remove("h-[256px]");
+//         currentChar.classList.add("h-[200px]");
+//         isLoop = 1;
+//     } else {
+//         currentChar.classList.remove("h-[200px]");
+//         currentChar.classList.add("h-[256px]");
+//         isLoop = 0;
+//     }
+// }
+
+// setInterval(characterBounce, 500);
