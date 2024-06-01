@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let selChar = 'Marc';
     let selCharID = 'marc';
     let currentPose = '00';
+    let currentColorID = '00';
 
     windowBtns.forEach((button) => {
         const dataWindow = button.getAttribute("data-window");
@@ -60,9 +61,10 @@ document.addEventListener("DOMContentLoaded", function () {
         img.src = imageUrl;
     }
 
-    function setImageSrc(charName, charId, pose) {
-        const mainPath = `./characters/${charName}/${charId}_00_${pose}.png`;
-        const fallbackPath = `./characters/${charName}/${charId}_00_00_${pose}.png`;
+    function setImageSrc(charName, charId, pose, colorID) {
+        console.log(colorID);
+        const mainPath = `./characters/${charName}/${charId}_${colorID}_${pose}.png`;
+        const fallbackPath = `./characters/${charName}/${charId}_00_${colorID}_${pose}.png`;
         
         imageExists(mainPath, function (exists) {
             currentChar.src = exists ? mainPath : fallbackPath;
@@ -79,19 +81,20 @@ document.addEventListener("DOMContentLoaded", function () {
                         playAudio(btnSfx);
                         selChar = charName;
                         currentPose = '00';
+                        currentColorID = '00';
+                        
                         if (charIds[charName]) {
                             selCharID = charIds[charName];
-                            setImageSrc(selChar, selCharID, currentPose);
+                            setImageSrc(selChar, selCharID, currentPose, currentColorID);
                         } else {
                             console.error(`Character name "${charName}" not found in charids.json`);
                         }
                     });
                 });
 
-                // Set up the default character
                 if (charIds[defaultChar]) {
                     selCharID = charIds[defaultChar];
-                    setImageSrc(defaultChar, selCharID, currentPose);
+                    setImageSrc(defaultChar, selCharID, currentPose, currentColorID);
                 }
             })
             .catch((error) => console.error("Error loading charids.json:", error));
@@ -103,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .then((characters) => {
                 charIcons.forEach((charIcon) => {
                     charIcon.addEventListener("click", function () {
-                        const clothes1Div = document.getElementById("clothes1");
                         const charName = charIcon.getAttribute("data-card2");
 
                         if (characters[charName]) {
@@ -115,8 +117,8 @@ document.addEventListener("DOMContentLoaded", function () {
                                 const twoDigit = String(index + 1).padStart(2, '0');
                                 if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`)) {
                                     const img = document.createElement('img');
-                                    img.classList.add("cursor-pointer", "poseBtn");
-                                    img.setAttribute("data-pose", index);
+                                    img.classList.add("cursor-pointer", "colorBtn");
+                                    img.setAttribute("data-color", twoDigit);
                                     img.src = `./images/${btn}`;
                                     img.alt = "";
                                     colorBtnsDiv.appendChild(img);
@@ -126,7 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                 });
 
-                // Set up the default character's color buttons
                 if (characters[defaultChar]) {
                     const charFiles = characters[defaultChar]["Files"];
                     const colorBtnsDiv = document.getElementById("clothes1");
@@ -136,8 +137,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         const twoDigit = String(index + 1).padStart(2, '0');
                         if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`)) {
                             const img = document.createElement('img');
-                            img.classList.add("cursor-pointer", "poseBtn");
-                            img.setAttribute("data-pose", index);
+                            img.classList.add("cursor-pointer", "colorBtn");
+                            img.setAttribute("data-color", twoDigit);
                             img.src = `./images/${btn}`;
                             img.alt = "";
                             colorBtnsDiv.appendChild(img);
@@ -157,7 +158,15 @@ document.addEventListener("DOMContentLoaded", function () {
             const poseID = button.getAttribute("data-pose");
             currentPose = poseID;
             playAudio(btnSfx);
-            setImageSrc(selChar, selCharID, poseID);
+            setImageSrc(selChar, selCharID, poseID, currentColorID);
+        }
+
+        if (event.target.classList.contains('colorBtn')) {
+            const button = event.target;
+            const colorID = button.getAttribute("data-color");
+            currentColorID = colorID;
+            playAudio(btnSfx);
+            setImageSrc(selChar, selCharID, currentPose, colorID);
         }
     });
 
@@ -165,13 +174,19 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.target.classList.contains('poseBtn')) {
             const button = event.target;
             const poseID = button.getAttribute("data-pose");
-            setImageSrc(selChar, selCharID, poseID);
+            setImageSrc(selChar, selCharID, poseID, currentColorID);
+        }
+
+        if (event.target.classList.contains('colorBtn')) {
+            const button = event.target;
+            const colorID = button.getAttribute("data-color");
+            setImageSrc(selChar, selCharID, currentPose, colorID);
         }
     });
 
     document.addEventListener('mouseout', function (event) {
-        if (event.target.classList.contains('poseBtn')) {
-            setImageSrc(selChar, selCharID, currentPose);
+        if (event.target.classList.contains('poseBtn') || event.target.classList.contains('colorBtn')) {
+            setImageSrc(selChar, selCharID, currentPose, currentColorID);
         }
     });
 });
