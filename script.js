@@ -19,6 +19,23 @@ document.addEventListener("DOMContentLoaded", function () {
     song.loop = true;
     let musicOn = 0;
 
+    const particlesBtn = document.getElementById("particlesBtn");
+    let particlesOn = 0;
+
+    particlesBtn.addEventListener("click", () => {
+        if (particlesOn == 0) {
+            stopParticles();
+            particlesOn = 1;
+
+            particlesBtn.textContent = "Particles Disabled";
+        } else {
+            startParticles();
+            particlesOn = 0;
+
+            particlesBtn.textContent = "Particles Enabled";
+        }
+    });
+
     musicBtn.addEventListener("click", () => {
         if (musicOn == 0) {
             song.play();
@@ -209,4 +226,6 @@ document.addEventListener("DOMContentLoaded", function () {
             setImageSrc(selChar, selCharID, currentPose, currentColorID);
         }
     });
+
+    startParticles();
 });
