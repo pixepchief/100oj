@@ -52,8 +52,9 @@
     <div class = "fixed h-full w-54 flex flex-col items-center justify-center">
         <a class = "bg-white w-full text-center p-4 rounded-r-3xl border-[6px] border-t-4 border-b-4 border-l-0 text-[#606060] btnClass border-[#FFBE64] text-2xl" >Avatar Creator</a>
     </div>
-    <div class = "fixed w-full h-full pb-8 flex items-end">
-        <p class = "px-4 bg-black text-white bg-opacity-30 rounded-r-3xl py-1 forceBtn">Change how your avatar looks.</p>
+    <div class = "fixed w-full h-full pb-8 flex flex-col justify-end gap-2">
+        <p class = "px-4 bg-black text-white text-xl bg-opacity-30 rounded-r-3xl py-1 forceBtn w-fit">Change how your avatar looks.</p>
+        <p class = "px-4 bg-black text-white text-sm bg-opacity-30 rounded-r-3xl py-1 forceBtn w-fit">Created by @PixepChief | Version 1.0.0</p>
     </div>
     <div class = "w-full h-full fixed flex items-center justify-center">
         <div class = "bg-white rounded-3xl border-4 border-[#FFBE64] btnClass p-4">
@@ -69,8 +70,8 @@
                 </div>
             </div>
             <div class = "flex flex-row gap-2 items-center">
-                <img src="./images/PlayerPlateIcon.png" alt="">
-                <img src="./images/PetsIcon.png" alt="">
+                <img class = "hover:-translate-y-1" src="./images/PlayerPlateIcon.png" alt="">
+                <img class = "hover:-translate-y-1" src="./images/PetsIcon.png" alt="">
                 <a onclick = "characterSelection.showModal()" class = "cursor-pointer w-fit h-fit mx-6 text-[#606060]">Change Character</a>
                 <dialog id="characterSelection" class="modal bg-black bg-opacity-70">
                     <div class = "modal-box bg-transparent shadow-none max-w-[88rem] h-[50rem] m-auto">
