@@ -7,6 +7,12 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.11.1/dist/full.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon-32x32.png">
+    <meta content="100% Orange Juice Avatar Creator" property="og:title">
+    <meta content="An online avatar creator for the game 100% Orange Juice, fully in your web browser!" property="og:description">
+    <meta content="100% Orange Juice Avatar Creator" property="og:site_name">
+    <meta content='./images/siteLogo.png' property='og:image'>
+    <meta name="theme-color" content="#FFBE64">
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/tsparticles/1.18.11/tsparticles.min.js"> </script>
     <script>
         tailwind.config = {
@@ -48,6 +54,7 @@
 <body id = "tsparticles" class = "w-full h-screen">
     <div class = "fixed mt-2 w-full h-12 bg-[#FFBE64] flex justify-between z-50">
         <div class = "flex flex-row gap-4 mx-4 items-center">
+            <img title = "Yo" class = "w-2/12" src="./images/siteLogo.png" alt="">
             <a id = "musicOption" class = "text-white forceBtn hover:text-lg transition-all cursor-pointer">Music Disabled</a>
             <a id = "particlesBtn" class = "text-white forceBtn hover:text-lg transition-all cursor-pointer">Particles Enabled</a>
             <a id = "sfxBtn" class = "text-white forceBtn hover:text-lg transition-all cursor-pointer">SFX Enabled</a>
