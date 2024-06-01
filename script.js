@@ -2,6 +2,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const charIcons = document.querySelectorAll(".character-icon");
     const currentChar = document.getElementById("currentChar");
 
+    const changeCharBtn = document.getElementById("changeCharBtn");
+    const btnSfx = "./audio/se_DECISION.WAV";
+
+    function playAudio(url) {
+        new Audio(url).play();
+    }
+
+    changeCharBtn.addEventListener("click", () => {
+        playAudio(btnSfx);
+    });
+
+    
     function imageExists(imageUrl, callback) {
         const img = new Image();
         img.onload = function () {
@@ -19,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             charIcons.forEach((charIcon) => {
                 charIcon.addEventListener("click", function () {
                     const charName = charIcon.getAttribute("data-card2");
+                    playAudio(btnSfx);
                     if (charIds[charName]) {
                         const charId = charIds[charName];
                         const firstImagePath = `./characters/${charName}/${charId}_00_00.png`;
