@@ -201,8 +201,58 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch((error) => console.error("Error loading characters.json:", error));
     }
 
+    function fetchPoses(defaultChar) {
+        fetch("characters.json")
+            .then((response) => response.json())
+            .then((characters) => {
+                charIcons.forEach((charIcon) => {
+                    charIcon.addEventListener("click", function () {
+                        const charName = charIcon.getAttribute("data-card2");
+
+                        if (characters[charName]) {
+                            const charFiles = characters[charName]["Files"];
+                            const colorBtnsDiv = document.getElementById("poses");
+                            colorBtnsDiv.innerHTML = "";
+
+                            colorBtns.forEach((btn, index) => {
+                                const twoDigit = String(index).padStart(2, '0');
+                                if (charFiles.includes(`${selCharID}_00_${twoDigit}.png`)) {
+                                    const img = document.createElement('img');
+                                    img.classList.add("cursor-pointer", "poseBtn");
+                                    img.setAttribute("data-pose", twoDigit);
+                                    img.src = `./images/${index + 1}_Icon.png`;
+                                    img.alt = "";
+                                    colorBtnsDiv.appendChild(img);
+                                }
+                            });
+                        }
+                    });
+                });
+
+                if (characters[defaultChar]) {
+                    const charFiles = characters[defaultChar]["Files"];
+                    const colorBtnsDiv = document.getElementById("poses");
+                    colorBtnsDiv.innerHTML = "";
+
+                    colorBtns.forEach((btn, index) => {
+                        const twoDigit = String(index).padStart(2, '0');
+                        if (charFiles.includes(`${selCharID}_00_${twoDigit}.png`)) {
+                            const img = document.createElement('img');
+                            img.classList.add("cursor-pointer", "poseBtn");
+                            img.setAttribute("data-pose", twoDigit);
+                            img.src = `./images/${index + 1}_Icon.png`;
+                            img.alt = "";
+                            colorBtnsDiv.appendChild(img);
+                        }
+                    });
+                }
+            })
+            .catch((error) => console.error("Error loading characters.json:", error));
+    }
+
     fetchCharID('Marc');
     fetchColors('Marc');
+    fetchPoses('Marc');
 
     document.addEventListener('click', function (event) {
         if (event.target.classList.contains('poseBtn')) {
