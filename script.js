@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const windowBtns = document.querySelectorAll(".windowBtn");
 
+    let selChar = 'Marc';
+    let selCharID = 'marc';
+    let currentPose = '00';
+
     windowBtns.forEach((button) => {
         const dataWindow = button.getAttribute("data-window");
         const targetWindow = document.getElementById(dataWindow);
@@ -15,8 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
             playAudio(btnSfx);
             targetWindow.classList.toggle("hidden");
             targetWindow.classList.toggle("flex");
-        })
-    })
+        });
+    });
 
     function playAudio(url) {
         new Audio(url).play();
@@ -37,6 +41,15 @@ document.addEventListener("DOMContentLoaded", function () {
         img.src = imageUrl;
     }
 
+    function setImageSrc(charName, charId, pose) {
+        const mainPath = `./characters/${charName}/${charId}_00_${pose}.png`;
+        const fallbackPath = `./characters/${charName}/${charId}_00_00_${pose}.png`;
+        
+        imageExists(mainPath, function (exists) {
+            currentChar.src = exists ? mainPath : fallbackPath;
+        });
+    }
+
     fetch("charids.json")
         .then((response) => response.json())
         .then((charIds) => {
@@ -44,25 +57,33 @@ document.addEventListener("DOMContentLoaded", function () {
                 charIcon.addEventListener("click", function () {
                     const charName = charIcon.getAttribute("data-card2");
                     playAudio(btnSfx);
+                    selChar = charName;
+                    currentPose = '00';
                     if (charIds[charName]) {
-                        const charId = charIds[charName];
-                        const firstImagePath = `./characters/${charName}/${charId}_00_00.png`;
-                        const fallbackImagePath = `./characters/${charName}/${charId}_00_00_00.png`;
-
-                        imageExists(firstImagePath, function (exists) {
-                            if (exists) {
-                                currentChar.src = firstImagePath;
-                            } else {
-                                currentChar.src = fallbackImagePath;
-                            }
-                        });
+                        selCharID = charIds[charName];
+                        setImageSrc(selChar, selCharID, currentPose);
                     } else {
-                        console.error(
-                            `Character name "${charName}" not found in charids.json`
-                        );
+                        console.error(`Character name "${charName}" not found in charids.json`);
                     }
                 });
             });
         })
         .catch((error) => console.error("Error loading charids.json:", error));
+
+    const poseBtns = document.querySelectorAll(".poseBtn");
+    poseBtns.forEach((button) => {
+        const poseID = button.getAttribute("data-pose");
+        button.addEventListener("click", () => {
+            currentPose = poseID;
+            playAudio(btnSfx);
+            setImageSrc(selChar, selCharID, poseID);
+        });
+        button.addEventListener("mouseover", () => {
+            setImageSrc(selChar, selCharID, poseID);
+        });
+
+        button.addEventListener("mouseout", () => {
+            setImageSrc(selChar, selCharID, currentPose);
+        });
+    });
 });
