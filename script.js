@@ -14,11 +14,24 @@ document.addEventListener("DOMContentLoaded", function () {
     windowBtns.forEach((button) => {
         const dataWindow = button.getAttribute("data-window");
         const targetWindow = document.getElementById(dataWindow);
-
+    
         button.addEventListener("click", () => {
             playAudio(btnSfx);
-            targetWindow.classList.toggle("hidden");
-            targetWindow.classList.toggle("flex");
+    
+            const isTargetWindowOpen = targetWindow.classList.contains("flex");
+
+            windowBtns.forEach((button2) => {
+                const dataWindowHide = button2.getAttribute("data-window");
+                const targetWindowHide = document.getElementById(dataWindowHide);
+                
+                targetWindowHide.classList.add("hidden");
+                targetWindowHide.classList.remove("flex");
+            });
+
+            if (!isTargetWindowOpen) {
+                targetWindow.classList.remove("hidden");
+                targetWindow.classList.add("flex");
+            }
         });
     });
 
