@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const windowBtns = document.querySelectorAll(".windowBtn");
 
-    const colorBtns = ['Orange_Icon.png', 'Blue_Icon.png', 'Green_Icon.png', 'Yellow_Icon.png', 
+    const colorBtns = ['1_Icon.png', 'Orange_Icon.png', 'Blue_Icon.png', 'Green_Icon.png', 'Yellow_Icon.png', 
     'Pink_Icon.png', 'Purple_Icon.png', 'Teal_Icon.png', 'Black_Icon.png', 'Rad_Poppo_Icon.png', 'Halloween_Outfit_Icon.png', 
     'Silver_Icon.png', 'Red_and_Blue_Icon.png', 'Dapper_Poppo_Icon.png', 'Cyborg_Poppo_Icon.png',
     'Christmas_Outfit_Icon.png', 'Tuxedo_Poppo_Icon.png', 'Chocolate_Icon.png', 'School_Outfit_Icon.png', 'White_Chocolate_Icon.png',
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             colorBtnsDiv.innerHTML = "";
 
                             colorBtns.forEach((btn, index) => {
-                                const twoDigit = String(index + 1).padStart(2, '0');
+                                const twoDigit = String(index).padStart(2, '0');
                                 if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`)) {
                                     const img = document.createElement('img');
                                     img.classList.add("cursor-pointer", "colorBtn");
@@ -186,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     colorBtnsDiv.innerHTML = "";
 
                     colorBtns.forEach((btn, index) => {
-                        const twoDigit = String(index + 1).padStart(2, '0');
+                        const twoDigit = String(index).padStart(2, '0');
                         if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`)) {
                             const img = document.createElement('img');
                             img.classList.add("cursor-pointer", "colorBtn");
