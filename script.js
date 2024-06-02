@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             colorBtns.forEach((btn, index) => {
                                 const twoDigit = String(index).padStart(2, '0');
-                                if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`)) {
+                                if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`) || charFiles.includes(`${selCharID}_00_${twoDigit}_00.png`)) {
                                     const img = document.createElement('img');
                                     img.classList.add("cursor-pointer", "colorBtn");
                                     img.setAttribute("data-color", twoDigit);
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     colorBtns.forEach((btn, index) => {
                         const twoDigit = String(index).padStart(2, '0');
-                        if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`)) {
+                        if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`) || charFiles.includes(`${selCharID}_00_${twoDigit}_00.png`)) {
                             const img = document.createElement('img');
                             img.classList.add("cursor-pointer", "colorBtn");
                             img.setAttribute("data-color", twoDigit);
@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             colorBtns.forEach((btn, index) => {
                                 const twoDigit = String(index).padStart(2, '0');
-                                if (charFiles.includes(`${selCharID}_00_${twoDigit}.png`)) {
+                                if (charFiles.includes(`${selCharID}_00_${twoDigit}.png`) || charFiles.includes(`${selCharID}_00_00_${twoDigit}.png`)) {
                                     const img = document.createElement('img');
                                     img.classList.add("cursor-pointer", "poseBtn");
                                     img.setAttribute("data-pose", twoDigit);
@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     colorBtns.forEach((btn, index) => {
                         const twoDigit = String(index).padStart(2, '0');
-                        if (charFiles.includes(`${selCharID}_00_${twoDigit}.png`)) {
+                        if (charFiles.includes(`${selCharID}_00_${twoDigit}.png`) || charFiles.includes(`${selCharID}_00_00_${twoDigit}.png`)) {
                             const img = document.createElement('img');
                             img.classList.add("cursor-pointer", "poseBtn");
                             img.setAttribute("data-pose", twoDigit);

@@ -26,7 +26,7 @@ Sadly, the only thing that I couldn't get right for the website is the hair, as 
 
 There are a few things that needs to be fixed, such as:
 
-* A few characters not working due to having different outfits (Hime for example)
+* ~~A few characters not working due to having different outfits (Hime for example)~~
 * Unique characters where there's two characters in one (Chef & Chris, Tomato & Mimyuu, Cuties)
 
 If the major bugs get fixed, then I will get started working on the following with no particular order:
