@@ -1,6 +1,7 @@
 [
     {
         "index": 0,
+        "alphamask": 5,
         "filename": "Santa_Hat_Icon.png",
         "characters": "*"
     },
@@ -16,21 +17,25 @@
     },
     {
         "index": 3,
+        "alphamask": 4,
         "filename": "Red_Crown_Icon.png",
         "characters": "*"
     },
     {
         "index": 4,
+        "alphamask": 4,
         "filename": "Purple_Crown_Icon.png",
         "characters": "*"
     },
     {
         "index": 5,
+        "alphamask": 0,
         "filename": "Jack_o'Lantern_Icon.png",
         "characters": "*"
     },
     {
         "index": 6,
+        "alphamask": 6,
         "filename": "Halloween_Costume_'16_Icon.png",
         "characters": "*"
     },
@@ -51,11 +56,13 @@
     },
     {
         "index": 10,
+        "alphamask": 7,
         "filename": "Halloween_Costume_'17_Icon.png",
         "characters": "*"
     },
     {
         "index": 11,
+        "alphamask": 8,
         "filename": "Reindeer_Kigurumi_Icon.png",
         "characters": "*"
     },
@@ -83,11 +90,13 @@
     {
         "index": 12,
         "filename": "Santa_Scramble_Costume_Icon.png",
+        "alphamask": 12,
         "characters": ["Aru", "Marc", "Fernet", "Peat", "Kai", "Flying Castle", "Syura", "Nanako", "Alte", "Kyoko",
         "Aru (Scramble)", "Nico", "Arthur", "Marc (Pilot)", "Fernet (Noble)"]
     },
     {
         "index": 12,
+        "alphamask": 17,
         "filename": "Fishing_Accessory_Icon.png",
         "characters": ["Kyousuke", "Sham", "Star Breaker", "Sweet Breaker", "Tomomo (Casual + Sweet Eater)"]
     },
@@ -113,46 +122,55 @@
     },
     {
         "index": 15,
+        "alphamask": 27,
         "filename": "Lunar_New_Year_Icon.png",
         "characters": "*"
     },
     {
         "index": 16,
+        "alphamask": 10,
         "filename": "Leo_Kigurumi_Icon.png",
         "characters": "*"
     },
     {
         "index": 17,
+        "alphamask": 11,
         "filename": "Trick_&_Treat_Costume_Icon.png",
         "characters": "*"
     },
     {
         "index": 18,
+        "alphamask": 13,
         "filename": "Pigformation_Icon.png",
         "characters": "*"
     },
     {
         "index": 19,
+        "alphamask": 14,
         "filename": "RPG_Costume_Icon.png",
         "characters": "*"
     },
     {
         "index": 20,
+        "alphamask": 15,
         "filename": "Miusaki's_Volleyball_Icon.png",
         "characters": ["Miusaki"]
     },
     {
         "index": 20,
+        "alphamask": 15,
         "filename": "Festa_Junina_Icon.png",
         "characters": ["Marc", "Fernet", "Peat"]
     },
     {
         "index": 20,
+        "alphamask": 15,
         "filename": "Beach_Accessory_Icon.png",
         "characters": ["QP (Dangerous)"]
     },
     {
         "index": 21,
+        "alphamask": 16,
         "filename": "Operation_Halloween_Costume_Icon.png",
         "characters": "*"
     },
@@ -163,6 +181,7 @@
     },
     {
         "index": 23,
+        "alphamask": 18,
         "filename": "Mushroom_Accessory_Icon.png",
         "characters": "*"
     },
@@ -173,11 +192,13 @@
     },
     {
         "index": 25,
+        "alphamask": 19, 
         "filename": "Cow_Kigurumi_Icon.png",
         "characters": "*"
     },
     {
         "index": 26,
+        "alphamask": 20,
         "filename": "Beach_Accessory_Icon.png",
         "characters": "*"
     },
@@ -188,22 +209,26 @@
     },
     {
         "index": 28,
+        "alphamask": 21,
         "filename": "Tricked_Out_Costume_Icon.png",
         "characters": "*"
     },
     {
         "index": 29,
+        "alphamask": 22,
         "filename": "Tiger_Kigurumi_Icon.png",
         "characters": "*"
     },
     {
         "index": 30,
+        "alphamask": 23,
         "filename": "Operation_Halloween_2022_Costume_Icon.png",
         "characters": "*"
     },
     {
         "index": 31,
         "filename": "Pastry_Chef_Outfit_Icon.png",
+        "alphamask": 24,
         "characters": ["QP (Dangerous)", "Sweet Breaker", "Tomomo (Casual + Sweet Eater)", "Sweet Creator", 
         "Saki (Sweet Maker)", "Natsumi (Sweet Blogger"]
     },
@@ -214,11 +239,13 @@
     },
     {
         "index": 32,
+        "alphamask": 25,
         "filename": "Sweet_God_Casual_Outfit_Icon.png",
         "characters": "*"
     },
     {
         "index": 33,
+        "alphamask": 26,
         "filename": "Bunny_Ears_Icon.png",
         "characters": "*"
     },
@@ -234,6 +261,7 @@
     },
     {
         "index": 35,
+        "alphamask": 28,
         "filename": "Trick_&_Treat_2023_Costume_Icon.png",
         "characters": "*"
     },
