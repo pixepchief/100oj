@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                         const accessoryIndex = String(accessory.index).padStart(2, '0');
                                         const accessoryCharacters = accessory.characters;
             
-                                        if (charFiles.includes(`${charId}_${accessoryIndex}_00.png`)) {
+                                        if (charFiles.includes(`${charId}_${accessoryIndex}_00.png`) || charFiles.includes(`${charId}_00_${accessoryIndex}_00.png`)) {
                                             console.log(charId + "_" + accessoryIndex + "_00")
                                             if (accessoryCharacters === "*" || accessoryCharacters.includes(charName)) {
                                                 const img = document.createElement('img');
@@ -256,7 +256,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 const accessoryIndex = String(accessory.index).padStart(2, '0');
                                 const accessoryCharacters = accessory.characters;
     
-                                if (charFiles.includes(`${charId}_${accessoryIndex}_00.png`)) {
+                                if (charFiles.includes(`${charId}_${accessoryIndex}_00.png`) || charFiles.includes(`${charId}_00_${accessoryIndex}_00.png`)) {
                                     console.log(charId + "_" + accessoryIndex + "_00")
                                     if (accessoryCharacters === "*" || accessoryCharacters.includes(defaultChar)) {
                                         const img = document.createElement('img');
