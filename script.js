@@ -13,18 +13,6 @@ document.addEventListener("DOMContentLoaded", function () {
     'Christmas_Outfit_Icon.png', 'Tuxedo_Poppo_Icon.png', 'Chocolate_Icon.png', 'School_Outfit_Icon.png', 'White_Chocolate_Icon.png',
     'Dark_Chocolate_Icon.png'];
 
-    const hatBtns = ['Santa_Hat_Icon.png', 'Brown_Antlers_Icon.png', 'Red_Antlers_Icon.png', 'Red_Crown_Icon.png', 'Purple_Crown_Icon.png',
-    "Jack_o'Lantern_Icon.png", "Halloween_Costume_'16_Icon.png", '', '', 'Poppo_Mask_Icon.png', "Halloween_Costume_'17_Icon.png", 'Reindeer_Kigurumi_Icon.png',
-    'Baker_Icon.png', 'Pudding_Baker_Icon.png', 'Sweet_Guardian_Icon.png', 'Lunar_New_Year_Icon.png', "NoName's_Whistle_Icon.png", 'Beach_Accessory_Icon.png',
-    'Waruda_Presents_Icon.png', 'Santa_Scramble_Costume_Icon.png', 'Leo_Kigurumi_Icon.png', 'Trick_&_Treat_Costume_Icon.png', 'Pigformation_Icon.png',
-    'RPG_Costume_Icon.png', "Miusaki's_Volleyball_Icon.png", 'Operation_Halloween_Costume_Icon.png', 'Festa_Junina_Icon.png', 'Flower_Hairpin_Icon.png',
-    'Fishing_Accessory_Icon.png', 'Mushroom_Accessory_Icon.png', 'Earmuffs_Icon.png', 'Cow_Kigurumi_Icon.png', 'Idol_Poppo_Icon.png', 'Tricked_Out_Costume_Icon.png',
-    'Tiger_Kigurumi_Icon.png', 'Operation_Halloween_2022_Costume_Icon.png', 'Pastry_Chef_Outfit_Icon.png', 'Sweet_God_Casual_Outfit_Icon.png', 'Bunny_Ears_Icon.png',
-    "Mio's_Apron_Icon.png", 'Dark_Hairpin_Icon.png', 'Flower_Crown_Icon.png', 'Trick_&_Treat_2023_Costume_Icon.png', 'Memory_Accessory_Icon.png'
-   ];
-
-   console.log(hatBtns);
-
     const musicBtn = document.getElementById("musicOption");
     const song = new Audio('./audio/mainMenu.mp3');
     song.volume = 0.5;
@@ -217,54 +205,77 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("characters.json")
             .then((response) => response.json())
             .then((characters) => {
-                charIcons.forEach((charIcon) => {
-                    charIcon.addEventListener("click", function () {
-                        const charName = charIcon.getAttribute("data-card2");
-
-                        if (characters[charName]) {
-                            const charFiles = characters[charName]["Subdirectories"]["Hats"]["Files"];
+                fetch("accessories.json")
+                    .then((response) => response.json())
+                    .then((accessories) => {
+                        charIcons.forEach((charIcon) => {
+                            charIcon.addEventListener("click", function () {
+                                const charName = charIcon.getAttribute("data-card2");
+    
+                                if (charName) {
+                                    const accessoriesBtnDiv = document.getElementById("accessories");
+                                    accessoriesBtnDiv.innerHTML = "";
+        
+                                    console.log(characters[charName]);   
+            
+                                    const charFiles = characters[charName]["Subdirectories"]["Hats"]["Files"];
+            
+                                    accessories.forEach((accessory) => {
+                                        const charId = selCharID;
+                                        const accessoryFilename = accessory.filename;
+                                        const accessoryIndex = String(accessory.index).padStart(2, '0');
+                                        const accessoryCharacters = accessory.characters;
+            
+                                        if (charFiles.includes(`${charId}_${accessoryIndex}_00.png`)) {
+                                            console.log(charId + "_" + accessoryIndex + "_00")
+                                            if (accessoryCharacters === "*" || accessoryCharacters.includes(charName)) {
+                                                const img = document.createElement('img');
+                                                img.classList.add("cursor-pointer", "accessoryBtn");
+                                                img.setAttribute("data-hat", accessoryIndex);
+                                                img.src = `./images/${accessoryFilename}`;
+                                                img.alt = "";
+                                                accessoriesBtnDiv.appendChild(img);
+                                            }
+                                        }
+                                    });
+                                }
+                            });
+                        });
+    
+                        if (characters[defaultChar]) {
                             const accessoriesBtnDiv = document.getElementById("accessories");
                             accessoriesBtnDiv.innerHTML = "";
 
-                            hatBtns.forEach((btn, index) => {
-                                const twoDigit = String(index).padStart(2, '0');
-                                if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`) || charFiles.includes(`${selCharID}_00_${twoDigit}_00.png`)) {
-                                    if (index !== 7 || index !== 8) {
+                            console.log(characters[defaultChar]);   
+    
+                            const charFiles = characters[defaultChar]["Subdirectories"]["Hats"]["Files"];
+    
+                            accessories.forEach((accessory) => {
+                                const charId = selCharID;
+                                const accessoryFilename = accessory.filename;
+                                const accessoryIndex = String(accessory.index).padStart(2, '0');
+                                const accessoryCharacters = accessory.characters;
+    
+                                if (charFiles.includes(`${charId}_${accessoryIndex}_00.png`)) {
+                                    console.log(charId + "_" + accessoryIndex + "_00")
+                                    if (accessoryCharacters === "*" || accessoryCharacters.includes(defaultChar)) {
                                         const img = document.createElement('img');
                                         img.classList.add("cursor-pointer", "accessoryBtn");
-                                        img.setAttribute("data-hat", twoDigit);
-                                        img.src = `./images/${btn}`;
+                                        img.setAttribute("data-hat", accessoryIndex);
+                                        img.src = `./images/${accessoryFilename}`;
                                         img.alt = "";
                                         accessoriesBtnDiv.appendChild(img);
                                     }
                                 }
                             });
                         }
-                    });
-                });
-
-                if (characters[defaultChar]) {
-                    const charFiles = characters[defaultChar]["Subdirectories"]["Hats"]["Files"];
-                    const accessoriesBtnDiv = document.getElementById("accessories");
-                    accessoriesBtnDiv.innerHTML = "";
-
-                    hatBtns.forEach((btn, index) => {
-                        const twoDigit = String(index).padStart(2, '0');
-                        if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`) || charFiles.includes(`${selCharID}_00_${twoDigit}_00.png`)) {
-                            if (index !== 7 || index !== 8) {
-                                const img = document.createElement('img');
-                                img.classList.add("cursor-pointer", "accessoryBtn");
-                                img.setAttribute("data-hat", twoDigit);
-                                img.src = `./images/${btn}`;
-                                img.alt = "";
-                                accessoriesBtnDiv.appendChild(img);
-                            }
-                        }
-                    });
-                }
+                    })
+                    .catch((error) => console.error("Error loading accessories.json:", error));
             })
             .catch((error) => console.error("Error loading characters.json:", error));
     }
+    
+
 
     function fetchPoses(defaultChar) {
         fetch("characters.json")

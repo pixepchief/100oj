@@ -1,0 +1,245 @@
+[
+    {
+        "index": 0,
+        "filename": "Santa_Hat_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 1,
+        "filename": "Brown_Antlers_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 2,
+        "filename": "Red_Antlers_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 3,
+        "filename": "Red_Crown_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 4,
+        "filename": "Purple_Crown_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 5,
+        "filename": "Jack_o'Lantern_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 6,
+        "filename": "Halloween_Costume_'16_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 7,
+        "filename": "",
+        "characters": "*"
+    },
+    {
+        "index": 8,
+        "filename": "",
+        "characters": "*"
+    },
+    {
+        "index": 9,
+        "filename": "Poppo_Mask_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 10,
+        "filename": "Halloween_Costume_'17_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 11,
+        "filename": "Reindeer_Kigurumi_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 12,
+        "filename": "Baker_Icon.png",
+        "characters": ["QP", "QP (Dangerous)"]
+    },
+    {
+        "index": 12,
+        "filename": "NoName's_Whistle_Icon.png",
+        "characters": ["NoName"]
+    },
+    {
+        "index": 12,
+        "filename": "Beach_Accessory_Icon.png",
+        "characters": ["Marie Poppo", "Seagull", "Nath", "Tomato", "Yuki (Dangerous)", 
+        "Tomomo (Casual + Sweet Eater)", "Mio", "Mio (Festive)"]
+    },
+    {
+        "index": 12,
+        "filename": "Waruda's_Presents_Icon.png",
+        "characters": ["Yuki", "Krilalaris", "Kiriko", "Yuki (Dangerous)"]
+    },
+    {
+        "index": 12,
+        "filename": "Santa_Scramble_Costume_Icon.png",
+        "characters": ["Aru", "Marc", "Fernet", "Peat", "Kai", "Flying Castle", "Syura", "Nanako", "Alte", "Kyoko",
+        "Aru (Scramble)", "Nico", "Arthur", "Marc (Pilot)", "Fernet (Noble)"]
+    },
+    {
+        "index": 12,
+        "filename": "Fishing_Accessory_Icon.png",
+        "characters": ["Kyousuke", "Sham", "Star Breaker", "Sweet Breaker", "Tomomo (Casual + Sweet Eater)"]
+    },
+    {
+        "index": 13,
+        "filename": "Pudding_Baker_Icon.png",
+        "characters": ["QP", "QP (Dangerous)"]
+    },
+    {
+        "index": 13,
+        "filename": "Waruda's_Presents_Icon.png",
+        "characters": ["Tomato"]
+    },
+    {
+        "index": 13,
+        "filename": "Fishing_Accessory_Icon.png",
+        "characters": ["Kai", "Syura"]
+    },
+    {
+        "index": 14,
+        "filename": "Sweet_Guardian_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 15,
+        "filename": "Lunar_New_Year_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 16,
+        "filename": "Leo_Kigurumi_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 17,
+        "filename": "Trick_&_Treat_Costume_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 18,
+        "filename": "Pigformation_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 19,
+        "filename": "RPG_Costume_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 20,
+        "filename": "Miusaki's_Volleyball_Icon.png",
+        "characters": ["Miusaki"]
+    },
+    {
+        "index": 20,
+        "filename": "Festa_Junina_Icon.png",
+        "characters": ["Marc", "Fernet", "Peat"]
+    },
+    {
+        "index": 20,
+        "filename": "Beach_Accessory_Icon.png",
+        "characters": ["QP (Dangerous)"]
+    },
+    {
+        "index": 21,
+        "filename": "Operation_Halloween_Costume_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 22,
+        "filename": "Flower_Hairpin_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 23,
+        "filename": "Mushroom_Accessory_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 24,
+        "filename": "Earmuffs_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 25,
+        "filename": "Cow_Kigurumi_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 26,
+        "filename": "Beach_Accessory_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 27,
+        "filename": "Idol_Poppo_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 28,
+        "filename": "Tricked_Out_Costume_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 29,
+        "filename": "Tiger_Kigurumi_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 30,
+        "filename": "Operation_Halloween_2022_Costume_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 31,
+        "filename": "Pastry_Chef_Outfit_Icon.png",
+        "characters": ["QP (Dangerous)", "Sweet Breaker", "Tomomo (Casual + Sweet Eater)", "Sweet Creator", 
+        "Saki (Sweet Maker)", "Natsumi (Sweet Blogger"]
+    },
+    {
+        "index": 31,
+        "filename": "Mio's_Apron_Icon.png",
+        "characters": ["Mio (Festive)"]
+    },
+    {
+        "index": 32,
+        "filename": "Sweet_God_Casual_Outfit_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 33,
+        "filename": "Bunny_Ears_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 34,
+        "filename": "Dark_Hairpin_Icon.png",
+        "characters": ["Dark Lulu"]
+    },
+    {
+        "index": 34,
+        "filename": "Flower_Crown_Icon.png",
+        "characters": ["Mother Poppo"]
+    },
+    {
+        "index": 35,
+        "filename": "Trick_&_Treat_2023_Costume_Icon.png",
+        "characters": "*"
+    },
+    {
+        "index": 36,
+        "filename": "Memory_Accessory_Icon.png",
+        "characters": "*"
+    }
+]
