@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
     const charIcons = document.querySelectorAll(".character-icon");
     const currentChar = document.getElementById("currentChar");
+    const alphamask = document.getElementById("alphamask");
+    const accessory = document.getElementById("accessory");
 
     const changeCharBtn = document.getElementById("changeCharBtn");
     const btnSfx = "./audio/se_DECISION.WAV";
@@ -67,6 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let selCharID = 'marc';
     let currentPose = '00';
     let currentColorID = '00';
+    let currentAccessory = '69';
 
     windowBtns.forEach((button) => {
         const dataWindow = button.getAttribute("data-window");
@@ -104,14 +107,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function imageExists(imageUrl, callback) {
         const img = new Image();
-        img.onload = function () {
-            callback(true);
-        };
-        img.onerror = function () {
+        try {
+            img.onload = function () {
+                callback(true);
+            };
+            img.onerror = function () {
+                callback(false);
+            };
+            img.src = imageUrl;
+        } catch (error) {
+            console.error("Error loading image:", error);
             callback(false);
-        };
-        img.src = imageUrl;
+        }
     }
+        
 
     function setImageSrc(charName, charId, pose, colorID) {
         console.log(colorID);
@@ -121,6 +130,61 @@ document.addEventListener("DOMContentLoaded", function () {
         imageExists(mainPath, function (exists) {
             currentChar.src = exists ? mainPath : fallbackPath;
         });
+    }
+
+    function setAccessory(charName, charId, pose, accessoryID) {
+        if (accessoryID !== '69') {
+            let count = 0;
+            fetch("accessories.json")
+            .then((response) => response.json())
+            .then((accessories) => {
+                accessories.forEach((accessory) => {
+                    if (accessory.index == accessoryID) {
+                        count++;
+                    }
+                })
+
+                accessories.forEach((accessory) => {
+                    if (count > 1) {
+                        if (accessory.index == accessoryID && accessory.characters.includes(charName)) {
+                            console.log(accessory.alphamask);
+                            let twoDigit = String(accessory.alphamask).padStart(2, '0');
+                            let alphamaskPath = `./characters/${charName}/Alpha Masks/${charId}_${twoDigit}_${pose}.png`;
+                            imageExists(alphamaskPath, function (exists) {
+                                if (exists) {
+                                    alphamask.src = alphamaskPath;
+                                } else {
+                                    alphamask.src = '';
+                                }
+                            });
+                        }
+                    } else {
+                        if (accessory.index == accessoryID && accessory.characters === "*") {
+                            console.log(accessory.alphamask);
+                            let twoDigit = String(accessory.alphamask).padStart(2, '0');
+                            let alphamaskPath = `./characters/${charName}/Alpha Masks/${charId}_${twoDigit}_${pose}.png`;
+                            imageExists(alphamaskPath, function (exists) {
+                                if (exists) {
+                                    alphamask.src = alphamaskPath;
+                                } else {
+                                    alphamask.src = '';
+                                }
+                            });
+                        }
+                    }
+                })
+            });
+
+            const accessoryPath = `./characters/${charName}/Hats/${charId}_${accessoryID}_${pose}.png`;
+            const accessoryFall = `./characters/${charName}/Hats/${charId}_00_${accessoryID}_${pose}.png`;
+    
+            imageExists(accessoryPath, function (exists) {
+                accessory.src = exists ? accessoryPath : accessoryFall;
+            });
+        } else {
+            alphamask.src = '';
+            accessory.src = '';
+        }
     }
 
     function fetchCharID(defaultChar) {
@@ -215,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 if (charName) {
                                     const accessoriesBtnDiv = document.getElementById("accessories");
                                     accessoriesBtnDiv.innerHTML = "";
+                                    accessoriesBtnDiv.innerHTML = `<img data-hat = '69' class = 'cursor-pointer accessoryBtn' src="./images/1_Icon.png" alt="">`;
         
                                     console.log(characters[charName]);   
             
@@ -245,6 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (characters[defaultChar]) {
                             const accessoriesBtnDiv = document.getElementById("accessories");
                             accessoriesBtnDiv.innerHTML = "";
+                            accessoriesBtnDiv.innerHTML = `<img data-hat = '69' class = 'cursor-pointer accessoryBtn' src="./images/1_Icon.png" alt="">`;
 
                             console.log(characters[defaultChar]);   
     
@@ -338,6 +404,7 @@ document.addEventListener("DOMContentLoaded", function () {
             currentPose = poseID;
             playAudio(btnSfx);
             setImageSrc(selChar, selCharID, poseID, currentColorID);
+            setAccessory(selChar, selCharID, poseID, currentAccessory);
         }
 
         if (event.target.classList.contains('colorBtn')) {
@@ -346,6 +413,16 @@ document.addEventListener("DOMContentLoaded", function () {
             currentColorID = colorID;
             playAudio(btnSfx);
             setImageSrc(selChar, selCharID, currentPose, colorID);
+            setAccessory(selChar, selCharID, currentPose, currentAccessory);
+        }
+
+        if (event.target.classList.contains('accessoryBtn')) {
+            const button = event.target;
+            const accessoryID = button.getAttribute("data-hat");
+            currentAccessory = accessoryID;
+            playAudio(btnSfx);
+            setAccessory(selChar, selCharID, currentPose, accessoryID);
+            setAccessory(selChar, selCharID, currentPose, currentAccessory);
         }
     });
 
@@ -354,18 +431,27 @@ document.addEventListener("DOMContentLoaded", function () {
             const button = event.target;
             const poseID = button.getAttribute("data-pose");
             setImageSrc(selChar, selCharID, poseID, currentColorID);
+            setAccessory(selChar, selCharID, poseID, currentAccessory);
         }
 
         if (event.target.classList.contains('colorBtn')) {
             const button = event.target;
             const colorID = button.getAttribute("data-color");
             setImageSrc(selChar, selCharID, currentPose, colorID);
+            setAccessory(selChar, selCharID, currentPose, currentAccessory);
+        }
+
+        if (event.target.classList.contains('accessoryBtn')) {
+            const button = event.target;
+            const accessoryID = button.getAttribute("data-hat");
+            setAccessory(selChar, selCharID, currentPose, accessoryID);
         }
     });
 
     document.addEventListener('mouseout', function (event) {
-        if (event.target.classList.contains('poseBtn') || event.target.classList.contains('colorBtn')) {
+        if (event.target.classList.contains('poseBtn') || event.target.classList.contains('colorBtn') || event.target.classList.contains('accessoryBtn')) {
             setImageSrc(selChar, selCharID, currentPose, currentColorID);
+            setAccessory(selChar, selCharID, currentPose, currentAccessory);
         }
     });
 
