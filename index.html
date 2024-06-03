@@ -82,7 +82,11 @@
     <div class = "w-full h-full fixed flex items-center justify-center">
         <div class = "bg-white rounded-3xl border-4 border-[#FFBE64] btnClass p-4">
             <div class = "w-full flex justify-center relative top-4">
-                <img id = "currentChar" class = "origin-bottom animate-jello-horizontal transition-all h-[256px] w-[256px]" src="./images/marc_00_00.png" alt="">
+                <div class = "relative origin-bottom animate-jello-horizontal">
+                    <!-- <img class = "absolute z-[30] mix-blend-screen invert" src="./characters/Marc/Alpha Masks/marc_19_00.png" alt="">
+                    <img class = "absolute z-[45]" src="./characters/Marc/Hats/marc_25_00.png" alt=""> -->
+                    <img id = "currentChar" class = "z-[10] bg-white h-[256px] w-[256px]" src="./images/marc_00_00.png" alt="">
+                </div>
                 <div class = "grid grid-cols-2 grid-rows-3 gap-3 h-fit">
                     <div class = "">
                         <img class = "cursor-pointer windowBtn" data-window = "poses" src="./images/PosesIcon.png" alt="">
@@ -92,12 +96,15 @@
                     <div>
                         <img class = "cursor-pointer windowBtn" data-window = "clothes1" src="./images/UnitColorsIcon.png" alt="">
                         <div id = "clothes1" class = "hidden w-8/12 gap-1 px-4 -top-12 ml-4 flex-row flex-wrap absolute btnClass bg-white rounded-3xl border-4 border-[#FFBE64] p-2">
-
                         </div>
                     </div>
                     <img class = "cursor-pointer" src="./images/UnitColorsIcon2.png" alt="">
                     <img class = "cursor-pointer" src="./images/HairColorsIcon.png" alt="">
-                    <img class = "cursor-pointer" src="./images/AccessoriesIcon.png" alt="">
+                    <div>
+                        <img class = "cursor-pointer windowBtn" data-window = "accessories" src="./images/AccessoriesIcon.png" alt="">
+                        <div id = "accessories" class = "hidden w-8/12 gap-1 px-4 -top-12 ml-4 flex-row flex-wrap absolute btnClass bg-white rounded-3xl border-4 border-[#FFBE64] p-2">
+                        </div>
+                    </div>
                     <img class = "cursor-pointer" src="./images/GlassesIcon.png" alt="">
                 </div>
             </div>
