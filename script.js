@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const particlesBtn = document.getElementById("particlesBtn");
     const sfxBtn = document.getElementById("sfxBtn");
     const colorBtnsDiv = document.getElementById("clothes1");
-    const accessoriesBtnDiv = document.getElementById("accessories");
+    const accessoriesBtnDiv = document.getElementById("accessoriesDiv");
     const glassesDiv = document.getElementById("glasses");
     const glass = document.getElementById("glassOverlay");
     const posesBtnDiv = document.getElementById("poses");
@@ -301,7 +301,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function appendPoses(file, isTriple) {
+    function appendPoses(file, isTriple, accessories) {
         let pose = null;
 
         if (isTriple) {
@@ -351,9 +351,9 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log(hasTripleDigit);
 
         if (hasTripleDigit) {
-            charFiles.filter(file => file.includes(`00_${currentColorID}_`)).forEach(file => appendPoses(file, true));
+            charFiles.filter(file => file.includes(`00_${currentColorID}_`)).forEach(file => appendPoses(file, true, accessories));
         } else {
-            charFiles.filter(file => file.includes(`_${currentColorID}_`)).forEach(file => appendPoses(file, false));
+            charFiles.filter(file => file.includes(`_${currentColorID}_`)).forEach(file => appendPoses(file, false, accessories));
         }
     }    
 
@@ -363,11 +363,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         appendGlass(0);
 
-        if (glassesHatFiles.includes(`${selCharID}_07_00.png`)) {
+        if (glassesHatFiles.includes(`${selCharID}_07_00.png`) || glassesHatFiles.includes(`${selCharID}_00_07_00.png`)) {
             appendGlass(7);
         }
 
-        if (glassesHatFiles.includes(`${selCharID}_08_00.png`)) {
+        if (glassesHatFiles.includes(`${selCharID}_08_00.png`) || glassesHatFiles.includes(`${selCharID}_00_08_00.png`)) {
             appendGlass(8);
         }
     }
