@@ -4,7 +4,7 @@ function startParticles() {
     tsParticles.load("tsparticles", {
         "particles": {
             "number": {
-                "value": 61,
+                "value": 21,
                 "density": {
                     "enable": true,
                     "value_area": 800

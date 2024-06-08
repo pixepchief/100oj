@@ -157,8 +157,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function setAccessory(charName, charId, pose, accessoryID, accessories) {
         pose = String(pose).padStart(2, '0');
         if (accessoryID !== '69') {
-            const accessoryNew = accessories.find(acc => acc.index == accessoryID);
+            const accessoryNew = accessories.find(acc => acc.index == accessoryID && acc.characters.includes(charName) || acc.index == accessoryID && acc.characters == '*');
             const alphamaskPath = `./characters/${charName}/Alpha Masks/${charId}_${String(accessoryNew.alphamask).padStart(2, '0')}_${pose}.png`;
+            console.log(accessoryNew);
 
             imageExists(alphamaskPath, exists => {
                 alphamask.src = exists ? alphamaskPath : '';
@@ -201,7 +202,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function updateAccessoryButtons(characters, accessories) {
         accessoriesBtnDiv.innerHTML = "";
     
-        // Get the list of filenames in the Hats folder for the current character
         const characterHatFiles = characters[selChar]["Subdirectories"]["Hats"]["Files"];
     
         const characterAccessories = accessories.filter(acc => {
@@ -212,14 +212,12 @@ document.addEventListener("DOMContentLoaded", function () {
             const twoDigit = String(acc.index).padStart(2, '0');
             const currentDigit = String(currentPose).padStart(2, '0');
     
-            // Check if the accessory index exists in the character's hat files
             if (characterHatFiles.includes(`${selCharID}_${twoDigit}_${currentDigit}.png`)) {
                 const img = document.createElement('img');
                 img.classList.add("cursor-pointer", "accessoryBtn");
                 img.setAttribute("data-hat", twoDigit);
                 img.src = `./images/${acc.filename}`;
     
-                // Add event listeners for hovering and selecting accessories
                 img.addEventListener('mouseenter', () => {
                     setAccessory(selChar, selCharID, currentPose, twoDigit, accessories);
                 });
@@ -251,8 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
             img.classList.add("cursor-pointer", "poseBtn");
             img.setAttribute("data-pose", pose);
             img.src = `./images/${pose + 1}_Icon.png`;
-    
-            // Add event listeners for hovering and clicking pose buttons
+
             img.addEventListener('mouseenter', () => {
                 setImageSrc(selChar, selCharID, pose, currentColorID);
                 setAccessory(selChar, selCharID, pose, currentAccessory, accessories);
