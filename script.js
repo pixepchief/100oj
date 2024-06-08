@@ -78,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentPose = '0';
                 currentColorID = '00';
                 currentAccessory = '69';
+                currentGlass = '00';
 
                 playAudio(btnSfx);
                 setImageSrc(selChar, selCharID, currentPose, currentColorID);
