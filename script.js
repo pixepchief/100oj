@@ -191,10 +191,21 @@ document.addEventListener("DOMContentLoaded", function () {
         if (accessoryID !== '69') {
             const accessoryNew = accessories.find(acc => acc.index == accessoryID && acc.characters.includes(charName) || acc.index == accessoryID && acc.characters == '*');
             const alphamaskPath = `./characters/${charName}/Alpha Masks/${charId}_${String(accessoryNew.alphamask).padStart(2, '0')}_${pose}.png`;
+            const alphamaskPathFall = `./characters/${charName}/Alpha Masks/${charId}_00_${String(accessoryNew.alphamask).padStart(2, '0')}_${pose}.png`;
             console.log(accessoryNew);
 
             imageExists(alphamaskPath, exists => {
-                alphamask.src = exists ? alphamaskPath : '';
+                if (exists) {
+                    alphamask.src = alphamaskPath;
+                } else {
+                    imageExists(alphamaskPathFall, exists => {
+                        if (exists) {
+                            alphamask.src = alphamaskPathFall;
+                        } else {
+                            alphamask.src = '';
+                        }
+                    })
+                }
             });
 
             const accessoryPath = `./characters/${charName}/Hats/${charId}_${accessoryID}_${pose}.png`;
@@ -265,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const twoDigit = String(acc.index).padStart(2, '0');
             const currentDigit = String(currentPose).padStart(2, '0');
     
-            if (characterHatFiles.includes(`${selCharID}_${twoDigit}_${currentDigit}.png`)) {
+            if (characterHatFiles.includes(`${selCharID}_${twoDigit}_${currentDigit}.png`) || characterHatFiles.includes(`${selCharID}_00_${twoDigit}_${currentDigit}.png`)) {
                 const img = document.createElement('img');
                 img.classList.add("cursor-pointer", "accessoryBtn");
                 img.setAttribute("data-hat", twoDigit);
