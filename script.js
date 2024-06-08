@@ -198,10 +198,12 @@ document.addEventListener("DOMContentLoaded", function () {
                         selChar = charName;
                         currentPose = '00';
                         currentColorID = '00';
+                        currentAccessory = '69';
                         
                         if (charIds[charName]) {
                             selCharID = charIds[charName];
                             setImageSrc(selChar, selCharID, currentPose, currentColorID);
+                            setAccessory(selChar, selCharID, currentPose, currentAccessory);
                         } else {
                             console.error(`Character name "${charName}" not found in charids.json`);
                         }
@@ -211,6 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (charIds[defaultChar]) {
                     selCharID = charIds[defaultChar];
                     setImageSrc(defaultChar, selCharID, currentPose, currentColorID);
+                    setAccessory(selChar, selCharID, currentPose, currentAccessory);
                 }
             })
             .catch((error) => console.error("Error loading charids.json:", error));
