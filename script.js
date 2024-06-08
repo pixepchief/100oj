@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function init(charIds, characters, accessories) {
         setupButtons();
         setupCharacterSelection(charIds, characters, accessories);
-        setupColorButtons(characters);
+        setupColorButtons(characters, accessories);
         updateAccessoryButtons(characters, accessories);
         updatePoseButtons(characters, accessories);
         setInitialCharacter(charIds, characters, accessories);
@@ -78,21 +78,44 @@ document.addEventListener("DOMContentLoaded", function () {
                 playAudio(btnSfx);
                 setImageSrc(selChar, selCharID, currentPose, currentColorID);
                 setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
-                updateColorButtons(characters);
+                setupColorButtons(characters, accessories);
                 updateAccessoryButtons(characters, accessories);
                 updatePoseButtons(characters, accessories);
             });
         });
     }
 
-    function setupColorButtons(characters) {
-        colorBtnsDiv.addEventListener('click', event => {
-            if (event.target.classList.contains('colorBtn')) {
-                const colorID = event.target.getAttribute("data-color");
-                currentColorID = colorID;
-                playAudio(btnSfx);
-                setImageSrc(selChar, selCharID, currentPose, colorID);
-                setAccessory(selChar, selCharID, currentPose, currentAccessory);
+    function setupColorButtons(characters, accessories) {
+        const charFiles = characters[selChar]["Files"];
+        colorBtnsDiv.innerHTML = "";
+        colorBtns.forEach((btn, index) => {
+            const twoDigit = String(index).padStart(2, '0');
+            if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`) || charFiles.includes(`${selCharID}_00_${twoDigit}_00.png`)) {
+                const img = document.createElement('img');
+                img.classList.add("cursor-pointer", "colorBtn");
+                img.setAttribute("data-color", twoDigit);
+                img.src = `./images/${btn}`;
+
+                img.addEventListener('mouseenter', () => {
+                    const colorID = img.getAttribute("data-color");
+                    setImageSrc(selChar, selCharID, currentPose, colorID);
+                    setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+                });
+    
+                img.addEventListener('mouseleave', () => {
+                    setImageSrc(selChar, selCharID, currentPose, currentColorID);
+                    setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+                });
+    
+                img.addEventListener('click', () => {
+                    const colorID = img.getAttribute("data-color");
+                    currentColorID = colorID;
+                    playAudio(btnSfx);
+                    setImageSrc(selChar, selCharID, currentPose, colorID);
+                    setAccessory(selChar, selCharID, currentPose, currentAccessory);
+                });
+    
+                colorBtnsDiv.appendChild(img);
             }
         });
     }
@@ -101,7 +124,7 @@ document.addEventListener("DOMContentLoaded", function () {
         selCharID = charIds[selChar];
         setImageSrc(selChar, selCharID, currentPose, currentColorID);
         setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
-        updateColorButtons(characters);
+        setupColorButtons(characters, accessories);
         updateAccessoryButtons(characters, accessories);
         updatePoseButtons(characters, accessories);
     }
@@ -182,21 +205,6 @@ document.addEventListener("DOMContentLoaded", function () {
         img.onload = () => callback(true);
         img.onerror = () => callback(false);
         img.src = imageUrl;
-    }
-
-    function updateColorButtons(characters) {
-        const charFiles = characters[selChar]["Files"];
-        colorBtnsDiv.innerHTML = "";
-        colorBtns.forEach((btn, index) => {
-            const twoDigit = String(index).padStart(2, '0');
-            if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`) || charFiles.includes(`${selCharID}_00_${twoDigit}_00.png`)) {
-                const img = document.createElement('img');
-                img.classList.add("cursor-pointer", "colorBtn");
-                img.setAttribute("data-color", twoDigit);
-                img.src = `./images/${btn}`;
-                colorBtnsDiv.appendChild(img);
-            }
-        });
     }
 
     function updateAccessoryButtons(characters, accessories) {
