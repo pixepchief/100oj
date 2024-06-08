@@ -215,6 +215,27 @@ document.addEventListener("DOMContentLoaded", function () {
         const characterAccessories = accessories.filter(acc => {
             return (acc.characters.includes(selChar) || acc.characters.includes("*")) && acc.index !== 7 && acc.index !== 8;
         });
+
+        const noAcc = document.createElement('img');
+        noAcc.classList.add("cursor-pointer", "accessoryBtn");
+        noAcc.setAttribute("data-hat", '69');
+        noAcc.src = './images/1_Icon.png';
+
+        noAcc.addEventListener('mouseenter', () => {
+            setAccessory(selChar, selCharID, currentPose, '69', accessories);
+        });
+
+        noAcc.addEventListener('mouseleave', () => {
+            setAccessory(selChar, selCharID, currentPose, '69', accessories);
+        });
+
+        noAcc.addEventListener('click', () => {
+            playAudio(btnSfx);
+            currentAccessory = '69';
+            setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+        });
+
+        accessoriesBtnDiv.appendChild(noAcc);
     
         characterAccessories.forEach(acc => {
             const twoDigit = String(acc.index).padStart(2, '0');
