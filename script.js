@@ -3,182 +3,171 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentChar = document.getElementById("currentChar");
     const alphamask = document.getElementById("alphamask");
     const accessory = document.getElementById("accessory");
-
     const changeCharBtn = document.getElementById("changeCharBtn");
-    const btnSfx = "./audio/se_DECISION.WAV";
-
     const windowBtns = document.querySelectorAll(".windowBtn");
-
-    const colorBtns = ['1_Icon.png', 'Orange_Icon.png', 'Blue_Icon.png', 'Green_Icon.png', 'Yellow_Icon.png', 
-    'Pink_Icon.png', 'Purple_Icon.png', 'Teal_Icon.png', 'Black_Icon.png', 'Rad_Poppo_Icon.png', 'Halloween_Outfit_Icon.png', 
-    'Silver_Icon.png', 'Red_and_Blue_Icon.png', 'Dapper_Poppo_Icon.png', 'Cyborg_Poppo_Icon.png',
-    'Christmas_Outfit_Icon.png', 'Tuxedo_Poppo_Icon.png', 'Chocolate_Icon.png', 'School_Outfit_Icon.png', 'White_Chocolate_Icon.png',
-    'Dark_Chocolate_Icon.png'];
-
     const musicBtn = document.getElementById("musicOption");
+    const particlesBtn = document.getElementById("particlesBtn");
+    const sfxBtn = document.getElementById("sfxBtn");
+    const colorBtnsDiv = document.getElementById("clothes1");
+    const accessoriesBtnDiv = document.getElementById("accessories");
+    const posesBtnDiv = document.getElementById("poses");
+
+    const btnSfx = "./audio/se_DECISION.WAV";
     const song = new Audio('./audio/mainMenu.mp3');
     song.volume = 0.5;
     song.loop = true;
-    let musicOn = 0;
 
-    const particlesBtn = document.getElementById("particlesBtn");
-    let particlesOn = 0;
-
-    const sfxBtn = document.getElementById("sfxBtn");
-    let sfxOn = 0;
-
-    sfxBtn.addEventListener("click", () => {
-        if (sfxOn == 0) {
-            sfxOn = 1;
-            sfxBtn.textContent = "SFX Disabled";
-        } else {
-            sfxOn = 0;
-            sfxBtn.textContent = "SFX Enabled";
-        }
-    });
-
-    particlesBtn.addEventListener("click", () => {
-        if (particlesOn == 0) {
-            stopParticles();
-            particlesOn = 1;
-
-            particlesBtn.textContent = "Particles Disabled";
-        } else {
-            startParticles();
-            particlesOn = 0;
-
-            particlesBtn.textContent = "Particles Enabled";
-        }
-    });
-
-    musicBtn.addEventListener("click", () => {
-        if (musicOn == 0) {
-            song.play();
-            musicOn = 1;
-
-            musicBtn.textContent = 'Music Enabled';
-        } else {
-            song.pause();
-            musicOn = 0;
-
-            musicBtn.textContent = 'Music Disabled';
-        }
-    });
+    let musicOn = false;
+    let particlesOn = false;
+    let sfxOn = false;
 
     let selChar = 'Marc';
     let selCharID = 'marc';
-    let currentPose = '00';
+    let currentPose = '0';
     let currentColorID = '00';
     let currentAccessory = '69';
 
-    windowBtns.forEach((button) => {
-        const dataWindow = button.getAttribute("data-window");
-        const targetWindow = document.getElementById(dataWindow);
-    
-        button.addEventListener("click", () => {
-            playAudio(btnSfx);
-    
-            const isTargetWindowOpen = targetWindow.classList.contains("flex");
+    const colorBtns = [
+        '1_Icon.png', 'Orange_Icon.png', 'Blue_Icon.png', 'Green_Icon.png', 'Yellow_Icon.png',
+        'Pink_Icon.png', 'Purple_Icon.png', 'Teal_Icon.png', 'Black_Icon.png', 'Rad_Poppo_Icon.png', 'Halloween_Outfit_Icon.png',
+        'Silver_Icon.png', 'Red_and_Blue_Icon.png', 'Dapper_Poppo_Icon.png', 'Cyborg_Poppo_Icon.png',
+        'Christmas_Outfit_Icon.png', 'Tuxedo_Poppo_Icon.png', 'Chocolate_Icon.png', 'School_Outfit_Icon.png', 'White_Chocolate_Icon.png',
+        'Dark_Chocolate_Icon.png'
+    ];
 
-            windowBtns.forEach((button2) => {
-                const dataWindowHide = button2.getAttribute("data-window");
-                const targetWindowHide = document.getElementById(dataWindowHide);
-                
-                targetWindowHide.classList.add("hidden");
-                targetWindowHide.classList.remove("flex");
+    async function fetchData() {
+        const [charIds, characters, accessories] = await Promise.all([
+            fetch("charids.json").then(res => res.json()),
+            fetch("characters.json").then(res => res.json()),
+            fetch("accessories.json").then(res => res.json())
+        ]);
+        return { charIds, characters, accessories };
+    }
+
+    fetchData().then(({ charIds, characters, accessories }) => {
+        init(charIds, characters, accessories);
+    });
+
+    function init(charIds, characters, accessories) {
+        setupButtons();
+        setupCharacterSelection(charIds, characters, accessories);
+        setupColorButtons(characters);
+        updateAccessoryButtons(characters, accessories);
+        updatePoseButtons(characters, accessories);
+        setInitialCharacter(charIds, characters, accessories);
+    }
+
+    function setupButtons() {
+        musicBtn.addEventListener("click", toggleMusic);
+        particlesBtn.addEventListener("click", toggleParticles);
+        sfxBtn.addEventListener("click", toggleSfx);
+        changeCharBtn.addEventListener("click", () => playAudio(btnSfx));
+        windowBtns.forEach(button => button.addEventListener("click", toggleWindow));
+    }
+
+    function setupCharacterSelection(charIds, characters, accessories) {
+        charIcons.forEach(charIcon => {
+            charIcon.addEventListener("click", function () {
+                const charName = charIcon.getAttribute("data-card2");
+                selChar = charName;
+                selCharID = charIds[charName];
+                currentPose = '0';
+                currentColorID = '00';
+                currentAccessory = '69';
+
+                playAudio(btnSfx);
+                setImageSrc(selChar, selCharID, currentPose, currentColorID);
+                setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+                updateColorButtons(characters);
+                updateAccessoryButtons(characters, accessories);
+                updatePoseButtons(characters, accessories);
             });
+        });
+    }
 
-            if (!isTargetWindowOpen) {
-                targetWindow.classList.remove("hidden");
-                targetWindow.classList.add("flex");
+    function setupColorButtons(characters) {
+        colorBtnsDiv.addEventListener('click', event => {
+            if (event.target.classList.contains('colorBtn')) {
+                const colorID = event.target.getAttribute("data-color");
+                currentColorID = colorID;
+                playAudio(btnSfx);
+                setImageSrc(selChar, selCharID, currentPose, colorID);
+                setAccessory(selChar, selCharID, currentPose, currentAccessory);
             }
         });
-    });
+    }
+
+    function setInitialCharacter(charIds, characters, accessories) {
+        selCharID = charIds[selChar];
+        setImageSrc(selChar, selCharID, currentPose, currentColorID);
+        setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+        updateColorButtons(characters);
+        updateAccessoryButtons(characters, accessories);
+        updatePoseButtons(characters, accessories);
+    }
+
+    function toggleMusic() {
+        musicOn = !musicOn;
+        musicOn ? song.play() : song.pause();
+        musicBtn.textContent = musicOn ? 'Music Enabled' : 'Music Disabled';
+    }
+
+    function toggleParticles() {
+        particlesOn = !particlesOn;
+        particlesOn ? stopParticles() : startParticles();
+        particlesBtn.textContent = particlesOn ? 'Particles Disabled' : 'Particles Enabled';
+    }
+
+    function toggleSfx() {
+        sfxOn = !sfxOn;
+        sfxBtn.textContent = sfxOn ? 'SFX Disabled' : 'SFX Enabled';
+    }
+
+    function toggleWindow(event) {
+        playAudio(btnSfx);
+        const targetWindow = document.getElementById(event.target.getAttribute("data-window"));
+        const isTargetWindowOpen = targetWindow.classList.contains("flex");
+
+        windowBtns.forEach(button => {
+            const window = document.getElementById(button.getAttribute("data-window"));
+            window.classList.add("hidden");
+            window.classList.remove("flex");
+        });
+
+        if (!isTargetWindowOpen) {
+            targetWindow.classList.remove("hidden");
+            targetWindow.classList.add("flex");
+        }
+    }
 
     function playAudio(url) {
-        if (sfxOn == 0) {
-            new Audio(url).play();
-        }
+        if (!sfxOn) new Audio(url).play();
+        console.trace();
     }
-
-    changeCharBtn.addEventListener("click", () => {
-        playAudio(btnSfx);
-    });
-
-    function imageExists(imageUrl, callback) {
-        const img = new Image();
-        try {
-            img.onload = function () {
-                callback(true);
-            };
-            img.onerror = function () {
-                callback(false);
-            };
-            img.src = imageUrl;
-        } catch (error) {
-            console.error("Error loading image:", error);
-            callback(false);
-        }
-    }
-        
 
     function setImageSrc(charName, charId, pose, colorID) {
-        console.log(colorID);
-        const mainPath = `./characters/${charName}/${charId}_${colorID}_${pose}.png`;
-        const fallbackPath = `./characters/${charName}/${charId}_00_${colorID}_${pose}.png`;
-        
-        imageExists(mainPath, function (exists) {
+        const mainPath = `./characters/${charName}/${charId}_${colorID}_0${pose}.png`;
+        const fallbackPath = `./characters/${charName}/${charId}_00_${colorID}_0${pose}.png`;
+    
+        imageExists(mainPath, exists => {
             currentChar.src = exists ? mainPath : fallbackPath;
         });
-    }
+    }    
 
-    function setAccessory(charName, charId, pose, accessoryID) {
+    function setAccessory(charName, charId, pose, accessoryID, accessories) {
+        pose = String(pose).padStart(2, '0');
         if (accessoryID !== '69') {
-            let count = 0;
-            fetch("accessories.json")
-            .then((response) => response.json())
-            .then((accessories) => {
-                accessories.forEach((accessory) => {
-                    if (accessory.index == accessoryID) {
-                        count++;
-                    }
-                })
+            const accessoryNew = accessories.find(acc => acc.index == accessoryID);
+            const alphamaskPath = `./characters/${charName}/Alpha Masks/${charId}_${String(accessoryNew.alphamask).padStart(2, '0')}_${pose}.png`;
 
-                accessories.forEach((accessory) => {
-                    if (count > 1) {
-                        if (accessory.index == accessoryID && accessory.characters.includes(charName)) {
-                            console.log(accessory.alphamask);
-                            let twoDigit = String(accessory.alphamask).padStart(2, '0');
-                            let alphamaskPath = `./characters/${charName}/Alpha Masks/${charId}_${twoDigit}_${pose}.png`;
-                            imageExists(alphamaskPath, function (exists) {
-                                if (exists) {
-                                    alphamask.src = alphamaskPath;
-                                } else {
-                                    alphamask.src = '';
-                                }
-                            });
-                        }
-                    } else {
-                        if (accessory.index == accessoryID && accessory.characters === "*") {
-                            console.log(accessory.alphamask);
-                            let twoDigit = String(accessory.alphamask).padStart(2, '0');
-                            let alphamaskPath = `./characters/${charName}/Alpha Masks/${charId}_${twoDigit}_${pose}.png`;
-                            imageExists(alphamaskPath, function (exists) {
-                                if (exists) {
-                                    alphamask.src = alphamaskPath;
-                                } else {
-                                    alphamask.src = '';
-                                }
-                            });
-                        }
-                    }
-                })
+            imageExists(alphamaskPath, exists => {
+                alphamask.src = exists ? alphamaskPath : '';
             });
 
             const accessoryPath = `./characters/${charName}/Hats/${charId}_${accessoryID}_${pose}.png`;
             const accessoryFall = `./characters/${charName}/Hats/${charId}_00_${accessoryID}_${pose}.png`;
-    
-            imageExists(accessoryPath, function (exists) {
+
+            imageExists(accessoryPath, exists => {
                 accessory.src = exists ? accessoryPath : accessoryFall;
             });
         } else {
@@ -187,276 +176,103 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function fetchCharID(defaultChar) {
-        fetch("charids.json")
-            .then((response) => response.json())
-            .then((charIds) => {
-                charIcons.forEach((charIcon) => {
-                    charIcon.addEventListener("click", function () {
-                        const charName = charIcon.getAttribute("data-card2");
-                        playAudio(btnSfx);
-                        selChar = charName;
-                        currentPose = '00';
-                        currentColorID = '00';
-                        currentAccessory = '69';
-                        
-                        if (charIds[charName]) {
-                            selCharID = charIds[charName];
-                            setImageSrc(selChar, selCharID, currentPose, currentColorID);
-                            setAccessory(selChar, selCharID, currentPose, currentAccessory);
-                        } else {
-                            console.error(`Character name "${charName}" not found in charids.json`);
-                        }
-                    });
+    function imageExists(imageUrl, callback) {
+        const img = new Image();
+        img.onload = () => callback(true);
+        img.onerror = () => callback(false);
+        img.src = imageUrl;
+    }
+
+    function updateColorButtons(characters) {
+        const charFiles = characters[selChar]["Files"];
+        colorBtnsDiv.innerHTML = "";
+        colorBtns.forEach((btn, index) => {
+            const twoDigit = String(index).padStart(2, '0');
+            if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`) || charFiles.includes(`${selCharID}_00_${twoDigit}_00.png`)) {
+                const img = document.createElement('img');
+                img.classList.add("cursor-pointer", "colorBtn");
+                img.setAttribute("data-color", twoDigit);
+                img.src = `./images/${btn}`;
+                colorBtnsDiv.appendChild(img);
+            }
+        });
+    }
+
+    function updateAccessoryButtons(characters, accessories) {
+        accessoriesBtnDiv.innerHTML = "";
+    
+        // Get the list of filenames in the Hats folder for the current character
+        const characterHatFiles = characters[selChar]["Subdirectories"]["Hats"]["Files"];
+    
+        const characterAccessories = accessories.filter(acc => {
+            return (acc.characters.includes(selChar) || acc.characters.includes("*")) && acc.index !== 7 && acc.index !== 8;
+        });
+    
+        characterAccessories.forEach(acc => {
+            const twoDigit = String(acc.index).padStart(2, '0');
+            const currentDigit = String(currentPose).padStart(2, '0');
+    
+            // Check if the accessory index exists in the character's hat files
+            if (characterHatFiles.includes(`${selCharID}_${twoDigit}_${currentDigit}.png`)) {
+                const img = document.createElement('img');
+                img.classList.add("cursor-pointer", "accessoryBtn");
+                img.setAttribute("data-hat", twoDigit);
+                img.src = `./images/${acc.filename}`;
+    
+                // Add event listeners for hovering and selecting accessories
+                img.addEventListener('mouseenter', () => {
+                    setAccessory(selChar, selCharID, currentPose, twoDigit, accessories);
                 });
-
-                if (charIds[defaultChar]) {
-                    selCharID = charIds[defaultChar];
-                    setImageSrc(defaultChar, selCharID, currentPose, currentColorID);
-                    setAccessory(selChar, selCharID, currentPose, currentAccessory);
-                }
-            })
-            .catch((error) => console.error("Error loading charids.json:", error));
-    }
-
-    function fetchColors(defaultChar) {
-        fetch("characters.json")
-            .then((response) => response.json())
-            .then((characters) => {
-                charIcons.forEach((charIcon) => {
-                    charIcon.addEventListener("click", function () {
-                        const charName = charIcon.getAttribute("data-card2");
-
-                        if (characters[charName]) {
-                            const charFiles = characters[charName]["Files"];
-                            const colorBtnsDiv = document.getElementById("clothes1");
-                            colorBtnsDiv.innerHTML = "";
-
-                            colorBtns.forEach((btn, index) => {
-                                const twoDigit = String(index).padStart(2, '0');
-                                if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`) || charFiles.includes(`${selCharID}_00_${twoDigit}_00.png`)) {
-                                    const img = document.createElement('img');
-                                    img.classList.add("cursor-pointer", "colorBtn");
-                                    img.setAttribute("data-color", twoDigit);
-                                    img.src = `./images/${btn}`;
-                                    img.alt = "";
-                                    colorBtnsDiv.appendChild(img);
-                                }
-                            });
-                        }
-                    });
+    
+                img.addEventListener('mouseleave', () => {
+                    setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
                 });
-
-                if (characters[defaultChar]) {
-                    const charFiles = characters[defaultChar]["Files"];
-                    const colorBtnsDiv = document.getElementById("clothes1");
-                    colorBtnsDiv.innerHTML = "";
-
-                    colorBtns.forEach((btn, index) => {
-                        const twoDigit = String(index).padStart(2, '0');
-                        if (charFiles.includes(`${selCharID}_${twoDigit}_00.png`) || charFiles.includes(`${selCharID}_00_${twoDigit}_00.png`)) {
-                            const img = document.createElement('img');
-                            img.classList.add("cursor-pointer", "colorBtn");
-                            img.setAttribute("data-color", twoDigit);
-                            img.src = `./images/${btn}`;
-                            img.alt = "";
-                            colorBtnsDiv.appendChild(img);
-                        }
-                    });
-                }
-            })
-            .catch((error) => console.error("Error loading characters.json:", error));
-    }
-
-    function fetchAccessories(defaultChar) {
-        fetch("characters.json")
-            .then((response) => response.json())
-            .then((characters) => {
-                fetch("accessories.json")
-                    .then((response) => response.json())
-                    .then((accessories) => {
-                        charIcons.forEach((charIcon) => {
-                            charIcon.addEventListener("click", function () {
-                                const charName = charIcon.getAttribute("data-card2");
     
-                                if (charName) {
-                                    const accessoriesBtnDiv = document.getElementById("accessories");
-                                    accessoriesBtnDiv.innerHTML = "";
-                                    accessoriesBtnDiv.innerHTML = `<img data-hat = '69' class = 'cursor-pointer accessoryBtn' src="./images/1_Icon.png" alt="">`;
-        
-                                    console.log(characters[charName]);   
-            
-                                    const charFiles = characters[charName]["Subdirectories"]["Hats"]["Files"];
-            
-                                    accessories.forEach((accessory) => {
-                                        const charId = selCharID;
-                                        const accessoryFilename = accessory.filename;
-                                        const accessoryIndex = String(accessory.index).padStart(2, '0');
-                                        const accessoryCharacters = accessory.characters;
-            
-                                        if (charFiles.includes(`${charId}_${accessoryIndex}_00.png`) || charFiles.includes(`${charId}_00_${accessoryIndex}_00.png`)) {
-                                            console.log(charId + "_" + accessoryIndex + "_00")
-                                            if (accessoryCharacters === "*" || accessoryCharacters.includes(charName)) {
-                                                const img = document.createElement('img');
-                                                img.classList.add("cursor-pointer", "accessoryBtn");
-                                                img.setAttribute("data-hat", accessoryIndex);
-                                                img.src = `./images/${accessoryFilename}`;
-                                                img.alt = "";
-                                                accessoriesBtnDiv.appendChild(img);
-                                            }
-                                        }
-                                    });
-                                }
-                            });
-                        });
-    
-                        if (characters[defaultChar]) {
-                            const accessoriesBtnDiv = document.getElementById("accessories");
-                            accessoriesBtnDiv.innerHTML = "";
-                            accessoriesBtnDiv.innerHTML = `<img data-hat = '69' class = 'cursor-pointer accessoryBtn' src="./images/1_Icon.png" alt="">`;
-
-                            console.log(characters[defaultChar]);   
-    
-                            const charFiles = characters[defaultChar]["Subdirectories"]["Hats"]["Files"];
-    
-                            accessories.forEach((accessory) => {
-                                const charId = selCharID;
-                                const accessoryFilename = accessory.filename;
-                                const accessoryIndex = String(accessory.index).padStart(2, '0');
-                                const accessoryCharacters = accessory.characters;
-    
-                                if (charFiles.includes(`${charId}_${accessoryIndex}_00.png`) || charFiles.includes(`${charId}_00_${accessoryIndex}_00.png`)) {
-                                    console.log(charId + "_" + accessoryIndex + "_00")
-                                    if (accessoryCharacters === "*" || accessoryCharacters.includes(defaultChar)) {
-                                        const img = document.createElement('img');
-                                        img.classList.add("cursor-pointer", "accessoryBtn");
-                                        img.setAttribute("data-hat", accessoryIndex);
-                                        img.src = `./images/${accessoryFilename}`;
-                                        img.alt = "";
-                                        accessoriesBtnDiv.appendChild(img);
-                                    }
-                                }
-                            });
-                        }
-                    })
-                    .catch((error) => console.error("Error loading accessories.json:", error));
-            })
-            .catch((error) => console.error("Error loading characters.json:", error));
-    }
-    
-
-
-    function fetchPoses(defaultChar) {
-        fetch("characters.json")
-            .then((response) => response.json())
-            .then((characters) => {
-                charIcons.forEach((charIcon) => {
-                    charIcon.addEventListener("click", function () {
-                        const charName = charIcon.getAttribute("data-card2");
-
-                        if (characters[charName]) {
-                            const charFiles = characters[charName]["Files"];
-                            const colorBtnsDiv = document.getElementById("poses");
-                            colorBtnsDiv.innerHTML = "";
-
-                            colorBtns.forEach((btn, index) => {
-                                const twoDigit = String(index).padStart(2, '0');
-                                if (charFiles.includes(`${selCharID}_00_${twoDigit}.png`) || charFiles.includes(`${selCharID}_00_00_${twoDigit}.png`)) {
-                                    const img = document.createElement('img');
-                                    img.classList.add("cursor-pointer", "poseBtn");
-                                    img.setAttribute("data-pose", twoDigit);
-                                    img.src = `./images/${index + 1}_Icon.png`;
-                                    img.alt = "";
-                                    colorBtnsDiv.appendChild(img);
-                                }
-                            });
-                        }
-                    });
+                img.addEventListener('click', () => {
+                    playAudio(btnSfx);
+                    currentAccessory = twoDigit;
+                    setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
                 });
-
-                if (characters[defaultChar]) {
-                    const charFiles = characters[defaultChar]["Files"];
-                    const colorBtnsDiv = document.getElementById("poses");
-                    colorBtnsDiv.innerHTML = "";
-
-                    colorBtns.forEach((btn, index) => {
-                        const twoDigit = String(index).padStart(2, '0');
-                        if (charFiles.includes(`${selCharID}_00_${twoDigit}.png`) || charFiles.includes(`${selCharID}_00_00_${twoDigit}.png`)) {
-                            const img = document.createElement('img');
-                            img.classList.add("cursor-pointer", "poseBtn");
-                            img.setAttribute("data-pose", twoDigit);
-                            img.src = `./images/${index + 1}_Icon.png`;
-                            img.alt = "";
-                            colorBtnsDiv.appendChild(img);
-                        }
-                    });
-                }
-            })
-            .catch((error) => console.error("Error loading characters.json:", error));
+    
+                accessoriesBtnDiv.appendChild(img);
+            }
+        });
     }
 
-    fetchCharID('Marc');
-    fetchColors('Marc');
-    fetchPoses('Marc');
-    fetchAccessories('Marc');
-
-    document.addEventListener('click', function (event) {
-        if (event.target.classList.contains('poseBtn')) {
-            const button = event.target;
-            const poseID = button.getAttribute("data-pose");
-            currentPose = poseID;
-            playAudio(btnSfx);
-            setImageSrc(selChar, selCharID, poseID, currentColorID);
-            setAccessory(selChar, selCharID, poseID, currentAccessory);
-        }
-
-        if (event.target.classList.contains('colorBtn')) {
-            const button = event.target;
-            const colorID = button.getAttribute("data-color");
-            currentColorID = colorID;
-            playAudio(btnSfx);
-            setImageSrc(selChar, selCharID, currentPose, colorID);
-            setAccessory(selChar, selCharID, currentPose, currentAccessory);
-        }
-
-        if (event.target.classList.contains('accessoryBtn')) {
-            const button = event.target;
-            const accessoryID = button.getAttribute("data-hat");
-            currentAccessory = accessoryID;
-            playAudio(btnSfx);
-            setAccessory(selChar, selCharID, currentPose, accessoryID);
-            setAccessory(selChar, selCharID, currentPose, currentAccessory);
-        }
-    });
-
-    document.addEventListener('mouseover', function (event) {
-        if (event.target.classList.contains('poseBtn')) {
-            const button = event.target;
-            const poseID = button.getAttribute("data-pose");
-            setImageSrc(selChar, selCharID, poseID, currentColorID);
-            setAccessory(selChar, selCharID, poseID, currentAccessory);
-        }
-
-        if (event.target.classList.contains('colorBtn')) {
-            const button = event.target;
-            const colorID = button.getAttribute("data-color");
-            setImageSrc(selChar, selCharID, currentPose, colorID);
-            setAccessory(selChar, selCharID, currentPose, currentAccessory);
-        }
-
-        if (event.target.classList.contains('accessoryBtn')) {
-            const button = event.target;
-            const accessoryID = button.getAttribute("data-hat");
-            setAccessory(selChar, selCharID, currentPose, accessoryID);
-        }
-    });
-
-    document.addEventListener('mouseout', function (event) {
-        if (event.target.classList.contains('poseBtn') || event.target.classList.contains('colorBtn') || event.target.classList.contains('accessoryBtn')) {
-            setImageSrc(selChar, selCharID, currentPose, currentColorID);
-            setAccessory(selChar, selCharID, currentPose, currentAccessory);
-        }
-    });
+    function updatePoseButtons(characters, accessories) {
+        const charFiles = characters[selChar]["Files"];
+        posesBtnDiv.innerHTML = "";
+        charFiles.filter(file => file.includes(`_${currentColorID}_`)).forEach(file => {
+            let pose = file.split('_')[2];
+            pose = pose.slice(pose, -4);
+            pose = pose.substring(1);
+            pose = parseInt(pose);
+            const img = document.createElement('img');
+            img.classList.add("cursor-pointer", "poseBtn");
+            img.setAttribute("data-pose", pose);
+            img.src = `./images/${pose + 1}_Icon.png`;
+    
+            // Add event listeners for hovering and clicking pose buttons
+            img.addEventListener('mouseenter', () => {
+                setImageSrc(selChar, selCharID, pose, currentColorID);
+                setAccessory(selChar, selCharID, pose, currentAccessory, accessories);
+            });
+    
+            img.addEventListener('mouseleave', () => {
+                setImageSrc(selChar, selCharID, currentPose, currentColorID);
+                setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+            });
+    
+            img.addEventListener('click', () => {
+                playAudio(btnSfx);
+                currentPose = pose;
+                setImageSrc(selChar, selCharID, currentPose, currentColorID);
+                setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+            });
+    
+            posesBtnDiv.appendChild(img);
+        });
+    }    
 
     startParticles();
 });
