@@ -381,6 +381,7 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     
             noAcc.addEventListener('mouseleave', () => {
+                console.log("haha back to how you were");
                 setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
             });
     
