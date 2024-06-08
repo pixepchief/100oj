@@ -387,7 +387,7 @@ document.addEventListener("DOMContentLoaded", function () {
             noAcc.addEventListener('click', () => {
                 playAudio(btnSfx);
                 currentGlass = '00';
-                setGlass(selChar, selCharID, currentPose, currentAccessory, accessories);
+                setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
             });
 
             glassesDiv.appendChild(noAcc);
