@@ -13,6 +13,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const glassesDiv = document.getElementById("glasses");
     const glass = document.getElementById("glassOverlay");
     const posesBtnDiv = document.getElementById("poses");
+    const secondaryChar = document.getElementById("secondaryChar");
+    const characterSwitchBtn = document.getElementById("headBtn");
 
     const btnSfx = "./audio/se_DECISION.WAV";
     const song = new Audio('./audio/mainMenu.mp3');
@@ -29,6 +31,16 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentColorID = '00';
     let currentAccessory = '69';
     let currentGlass = '00';
+    let currentSecondary = 'Mimyuu';
+    let isSecondary = false;
+
+    characterSwitchBtn.addEventListener("click", () => {
+        if (currentSecondary == 'Mimyuu') {
+            document.getElementById("charSwitchIco").src = './images/Tomatohead.png';
+        } else {
+            document.getElementById("charSwitchIco").src = './images/Mimyuuhead.png';
+        }
+    });
 
     const colorBtns = [
         '1_Icon.png', 'Orange_Icon.png', 'Blue_Icon.png', 'Green_Icon.png', 'Yellow_Icon.png',
@@ -69,6 +81,17 @@ document.addEventListener("DOMContentLoaded", function () {
         windowBtns.forEach(button => button.addEventListener("click", toggleWindow));
     }
 
+    function setupSecondary(isSecondary) {
+        if (isSecondary) {
+            secondaryChar.src = './characters/Mimyuu/mimyuu_00_00.png';
+            characterSwitchBtn.classList.remove("hidden");
+        } else {
+            secondaryChar.src = '';
+            characterSwitchBtn.classList.remove("hidden");
+            characterSwitchBtn.classList.add("hidden");
+        }
+    }
+
     function setupCharacterSelection(charIds, characters, accessories) {
         charIcons.forEach(charIcon => {
             charIcon.addEventListener("click", function () {
@@ -79,12 +102,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentColorID = '00';
                 currentAccessory = '69';
                 currentGlass = '00';
+                if (charName == 'Tomato') {
+                    isSecondary = true;
+                } else {
+                    isSecondary = false;
+                }
 
                 playAudio(btnSfx);
                 setImageSrc(selChar, selCharID, currentPose, currentColorID);
                 setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
                 setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
                 setupColorButtons(characters, accessories);
+                setupSecondary(isSecondary);
                 updateAccessoryButtons(characters, accessories);
                 updatePoseButtons(characters, accessories);
                 updateGlassesButtons(characters, accessories);

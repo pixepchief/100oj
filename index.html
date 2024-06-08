@@ -86,9 +86,10 @@
                     <img id = "alphamask" class = "absolute z-[30] mix-blend-screen invert" src="" alt="">
                     <img id = "glassOverlay" class = "absolute z-[47]" src="" alt="">
                     <img id = "accessory" class = "absolute z-[45]" src="" alt="">
-                    <img id = "currentChar" class = "z-[10] bg-white h-[256px] w-[256px]" src="./images/marc_00_00.png" alt="">
+                    <img id = "currentChar" class = "z-[15] bg-white h-[256px] w-[256px] relative" src="./images/marc_00_00.png" alt="">
+                    <img id = "secondaryChar" class = "z-[15] bg-transparent top-0 right-12 absolute brightness-50" src="" alt="">
                 </div>
-                <div class = "grid grid-cols-2 grid-rows-3 gap-3 h-fit">
+                <div class = "grid grid-cols-2 grid-rows-4 gap-3 h-fit z-50">
                     <div class = "">
                         <img class = "cursor-pointer windowBtn" data-window = "poses" src="./images/PosesIcon.png" alt="">
                         <div id = "poses" class = "z-50 hidden w-8/12 flex-wrap gap-1 px-4 -top-12 ml-4 flex-row absolute btnClass bg-white rounded-3xl border-4 border-[#FFBE64] p-2">
@@ -113,6 +114,10 @@
 
                         </div>
                     </div>
+                    <div id = "headBtn" class = "cursor-pointer relative hidden">
+                        <img id = "charSwitchIco" class = "z-[18] absolute w-[48px] h-[51px]" src="./images/Mimyuuhead.png" alt="">
+                        <img class = "absolute top-0 w-full h-full z-[17]" src="./images/Empty_Icon.png" alt="">
+                    </div>
                 </div>
             </div>
             <div class = "flex flex-row gap-2 items-center">
@@ -131,7 +136,7 @@
                         <span style="position:absolute; left:68em; top:0em;"><span class="character-icon" data-card2="Chris" style="white-space:pre;"><span title="Chris"><span class="ajaxttlink -Chris"><a class = "cursor-pointer hover:brightness-150 transition-all" onclick = "characterSelection.close()"><img alt="" src="https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/3/31/Chris.png" decoding="async" width="95" height="95" data-file-width="95" data-file-height="95"></a></span></span></span></span>
                         <span style="position:absolute; left:16em; top:4em;"><span class="character-icon" data-card2="Saki (Sweet Maker)" style="white-space:pre;"><span title="Saki (Sweet Maker)"><span class="ajaxttlink -Saki__Sweet_Maker_"><a class = "cursor-pointer hover:brightness-150 transition-all" onclick = "characterSelection.close()"><img alt="" src="https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/2/2e/Saki_%28Sweet_Maker%29.png" decoding="async" width="95" height="95" data-file-width="95" data-file-height="95"></a></span></span></span></span>
                         <span style="position:absolute; left:24em; top:4em;"><span class="character-icon" data-card2="QP (Dangerous)" style="white-space:pre;"><span title="QP (Dangerous)"><span class="ajaxttlink -QP__Dangerous_"><a class = "cursor-pointer hover:brightness-150 transition-all" onclick = "characterSelection.close()"><img alt="" src="https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/1/1c/QP_%28Dangerous%29.png" decoding="async" width="95" height="95" data-file-width="95" data-file-height="95"></a></span></span></span></span>
-                        <span style="position:absolute; left:32em; top:4em;"><span class="character-icon" data-card2="Tomato &amp; Mimyuu" style="white-space:pre;"><span title="Tomato &amp; Mimyuu"><span class="ajaxttlink -multiple" data-tt-tags="[&quot;Tomato&quot;, &quot;Mimyuu&quot;]"><a class = "cursor-pointer hover:brightness-150 transition-all" onclick = "characterSelection.close()"><img alt="" src="https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/8/86/Tomato_%26_Mimyuu.png" decoding="async" width="95" height="95" data-file-width="95" data-file-height="95"></a></span></span></span></span>
+                        <span style="position:absolute; left:32em; top:4em;"><span class="character-icon" data-card2="Tomato" style="white-space:pre;"><span title="Tomato &amp; Mimyuu"><span class="ajaxttlink -multiple" data-tt-tags="[&quot;Tomato&quot;, &quot;Mimyuu&quot;]"><a class = "cursor-pointer hover:brightness-150 transition-all" onclick = "characterSelection.close()"><img alt="" src="https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/8/86/Tomato_%26_Mimyuu.png" decoding="async" width="95" height="95" data-file-width="95" data-file-height="95"></a></span></span></span></span>
                         <span style="position:absolute; left:40em; top:4em;"><span class="character-icon" data-card2="Ceoreparque" style="white-space:pre;"><span title="Ceoreparque"><span class="ajaxttlink -Ceoreparque"><a class = "cursor-pointer hover:brightness-150 transition-all" onclick = "characterSelection.close()"><img alt="" src="https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/d/d3/Ceoreparque.png" decoding="async" width="95" height="95" data-file-width="95" data-file-height="95"></a></span></span></span></span>
                         <span style="position:absolute; left:48em; top:4em;"><span class="character-icon" data-card2="Miusaki" style="white-space:pre;"><span title="Miusaki"><span class="ajaxttlink -Miusaki"><a class = "cursor-pointer hover:brightness-150 transition-all" onclick = "characterSelection.close()"><img alt="" src="https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/b/b0/Miusaki.png" decoding="async" width="95" height="95" data-file-width="95" data-file-height="95"></a></span></span></span></span>
                         <span style="position:absolute; left:56em; top:4em;"><span class="character-icon" data-card2="Yuki (Dangerous)" style="white-space:pre;"><span title="Yuki (Dangerous)"><span class="ajaxttlink -Yuki__Dangerous_"><a class = "cursor-pointer hover:brightness-150 transition-all" onclick = "characterSelection.close()"><img alt="" src="https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/7/77/Yuki_%28Dangerous%29.png" decoding="async" width="95" height="95" data-file-width="95" data-file-height="95"></a></span></span></span></span>
