@@ -290,41 +290,60 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function updatePoseButtons(characters, accessories) {
-        const charFiles = characters[selChar]["Files"];
-        posesBtnDiv.innerHTML = "";
-        charFiles.filter(file => file.includes(`_${currentColorID}_`)).forEach(file => {
-            let pose = file.split('_')[2];
+    function appendPoses(file, isTriple) {
+        let pose = null;
+
+        if (isTriple) {
+            pose = file.split('_')[3];
             pose = pose.slice(pose, -4);
             pose = pose.substring(1);
             pose = parseInt(pose);
-            const img = document.createElement('img');
-            img.classList.add("cursor-pointer", "poseBtn");
-            img.setAttribute("data-pose", pose);
-            img.src = `./images/${pose + 1}_Icon.png`;
+        } else {
+            pose = file.split('_')[2];
+            pose = pose.slice(pose, -4);
+            pose = pose.substring(1);
+            pose = parseInt(pose);
+        }
 
-            img.addEventListener('mouseenter', () => {
-                setImageSrc(selChar, selCharID, pose, currentColorID);
-                setAccessory(selChar, selCharID, pose, currentAccessory, accessories);
-                setGlass(selChar, selCharID, pose, currentGlass, accessories);
-            });
-    
-            img.addEventListener('mouseleave', () => {
-                setImageSrc(selChar, selCharID, currentPose, currentColorID);
-                setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
-                setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
-            });
-    
-            img.addEventListener('click', () => {
-                playAudio(btnSfx);
-                currentPose = pose;
-                setImageSrc(selChar, selCharID, currentPose, currentColorID);
-                setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
-                setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
-            });
-    
-            posesBtnDiv.appendChild(img);
+        const img = document.createElement('img');
+        img.classList.add("cursor-pointer", "poseBtn");
+        img.setAttribute("data-pose", pose);
+        img.src = `./images/${pose + 1}_Icon.png`;
+
+        img.addEventListener('mouseenter', () => {
+            setImageSrc(selChar, selCharID, pose, currentColorID);
+            setAccessory(selChar, selCharID, pose, currentAccessory, accessories);
+            setGlass(selChar, selCharID, pose, currentGlass, accessories);
         });
+
+        img.addEventListener('mouseleave', () => {
+            setImageSrc(selChar, selCharID, currentPose, currentColorID);
+            setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+            setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
+        });
+
+        img.addEventListener('click', () => {
+            playAudio(btnSfx);
+            currentPose = pose;
+            setImageSrc(selChar, selCharID, currentPose, currentColorID);
+            setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+            setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
+        });
+
+        posesBtnDiv.appendChild(img);
+    }
+
+    function updatePoseButtons(characters, accessories) {
+        const charFiles = characters[selChar]["Files"];
+        posesBtnDiv.innerHTML = "";
+        const hasTripleDigit = charFiles.includes(`${selCharID}_00_${currentColorID}_00.png`);
+        console.log(hasTripleDigit);
+
+        if (hasTripleDigit) {
+            charFiles.filter(file => file.includes(`00_${currentColorID}_`)).forEach(file => appendPoses(file, true));
+        } else {
+            charFiles.filter(file => file.includes(`_${currentColorID}_`)).forEach(file => appendPoses(file, false));
+        }
     }    
 
     function updateGlassesButtons(characters, accessories) {
