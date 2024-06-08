@@ -385,7 +385,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
             noAcc.addEventListener('click', () => {
                 playAudio(btnSfx);
-                currentAccessory = '69';
+                currentGlass = '00';
                 setGlass(selChar, selCharID, currentPose, currentAccessory, accessories);
             });
 
