@@ -219,6 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 glass.src = exists ? glassPath : glassFall;
             });
         } else {
+            console.log('removed glasses');
             glass.src = '';
         }
     }
