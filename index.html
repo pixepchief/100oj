@@ -84,6 +84,7 @@
             <div class = "w-full flex justify-center relative top-4">
                 <div class = "relative origin-bottom animate-jello-horizontal">
                     <img id = "alphamask" class = "absolute z-[30] mix-blend-screen invert" src="" alt="">
+                    <img id = "glassOverlay" class = "absolute z-[47]" src="" alt="">
                     <img id = "accessory" class = "absolute z-[45]" src="" alt="">
                     <img id = "currentChar" class = "z-[10] bg-white h-[256px] w-[256px]" src="./images/marc_00_00.png" alt="">
                 </div>
@@ -106,7 +107,12 @@
                             <img data-hat = '69' class = 'cursor-pointer accessoryBtn' src="./images/1_Icon.png" alt="">
                         </div>
                     </div>
-                    <img class = "cursor-pointer" src="./images/GlassesIcon.png" alt="">
+                    <div>
+                        <img class = "cursor-pointer windowBtn" data-window = "glasses" src="./images/GlassesIcon.png" alt="">
+                        <div id = "glasses" class = "z-50 hidden w-8/12 gap-1 px-4 -top-12 ml-4 flex-row flex-wrap absolute btnClass bg-white rounded-3xl border-4 border-[#FFBE64] p-2">
+
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class = "flex flex-row gap-2 items-center">

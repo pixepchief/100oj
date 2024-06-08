@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const sfxBtn = document.getElementById("sfxBtn");
     const colorBtnsDiv = document.getElementById("clothes1");
     const accessoriesBtnDiv = document.getElementById("accessories");
+    const glassesDiv = document.getElementById("glasses");
+    const glass = document.getElementById("glassOverlay");
     const posesBtnDiv = document.getElementById("poses");
 
     const btnSfx = "./audio/se_DECISION.WAV";
@@ -26,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentPose = '0';
     let currentColorID = '00';
     let currentAccessory = '69';
+    let currentGlass = '00';
 
     const colorBtns = [
         '1_Icon.png', 'Orange_Icon.png', 'Blue_Icon.png', 'Green_Icon.png', 'Yellow_Icon.png',
@@ -54,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setupColorButtons(characters, accessories);
         updateAccessoryButtons(characters, accessories);
         updatePoseButtons(characters, accessories);
+        updateGlassesButtons(characters, accessories);
         setInitialCharacter(charIds, characters, accessories);
     }
 
@@ -78,9 +82,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 playAudio(btnSfx);
                 setImageSrc(selChar, selCharID, currentPose, currentColorID);
                 setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+                setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
                 setupColorButtons(characters, accessories);
                 updateAccessoryButtons(characters, accessories);
                 updatePoseButtons(characters, accessories);
+                updateGlassesButtons(characters, accessories);
             });
         });
     }
@@ -124,9 +130,11 @@ document.addEventListener("DOMContentLoaded", function () {
         selCharID = charIds[selChar];
         setImageSrc(selChar, selCharID, currentPose, currentColorID);
         setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+        setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
         setupColorButtons(characters, accessories);
         updateAccessoryButtons(characters, accessories);
         updatePoseButtons(characters, accessories);
+        updateGlassesButtons(characters, accessories);
     }
 
     function toggleMusic() {
@@ -197,6 +205,20 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             alphamask.src = '';
             accessory.src = '';
+        }
+    }
+
+    function setGlass(selChar, selCharID, pose, accessoryID, accessories) {
+        pose = String(pose).padStart(2, '0');
+        if (accessoryID !== '00') {
+            const glassPath = `./characters/${selChar}/Hats/${selCharID}_${accessoryID}_${pose}.png`;
+            const glassFall = `./characters/${selChar}/Hats/${selCharID}_00_${accessoryID}_${pose}.png`;
+
+            imageExists(glassPath, exists => {
+                glass.src = exists ? glassPath : glassFall;
+            });
+        } else {
+            glass.src = '';
         }
     }
 
@@ -282,11 +304,13 @@ document.addEventListener("DOMContentLoaded", function () {
             img.addEventListener('mouseenter', () => {
                 setImageSrc(selChar, selCharID, pose, currentColorID);
                 setAccessory(selChar, selCharID, pose, currentAccessory, accessories);
+                setGlass(selChar, selCharID, pose, currentGlass, accessories);
             });
     
             img.addEventListener('mouseleave', () => {
                 setImageSrc(selChar, selCharID, currentPose, currentColorID);
                 setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+                setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
             });
     
             img.addEventListener('click', () => {
@@ -294,11 +318,79 @@ document.addEventListener("DOMContentLoaded", function () {
                 currentPose = pose;
                 setImageSrc(selChar, selCharID, currentPose, currentColorID);
                 setAccessory(selChar, selCharID, currentPose, currentAccessory, accessories);
+                setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
             });
     
             posesBtnDiv.appendChild(img);
         });
     }    
+
+    function updateGlassesButtons(characters, accessories) {
+        glassesDiv.innerHTML = '';
+        const glassesHatFiles = characters[selChar]["Subdirectories"]["Hats"]["Files"];
+
+        appendGlass(0);
+
+        if (glassesHatFiles.includes(`${selCharID}_07_00.png`)) {
+            appendGlass(7);
+        }
+
+        if (glassesHatFiles.includes(`${selCharID}_08_00.png`)) {
+            appendGlass(8);
+        }
+    }
+
+    function appendGlass(accessoryId, accessories) {
+        if (accessoryId !== 0) {
+            const img = document.createElement('img');
+            const twoDigit = String(accessoryId).padStart(2, '0');
+            img.classList.add("cursor-pointer", "glassBtn");
+            img.setAttribute("data-glass", twoDigit);
+            
+            if (accessoryId == 8) {
+                img.src = `./images/Sunglasses_Icon.png`;
+            } else {
+                img.src = `./images/Eyeglasses_Icon.png`;
+            }
+    
+            img.addEventListener('mouseenter', () => {
+                setGlass(selChar, selCharID, currentPose, twoDigit, accessories);
+            });
+    
+            img.addEventListener('mouseleave', () => {
+                setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
+            });
+    
+            img.addEventListener('click', () => {
+                playAudio(btnSfx);
+                currentGlass = twoDigit;
+                setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
+            });
+    
+            glassesDiv.appendChild(img);
+        } else {
+            const noAcc = document.createElement('img');
+            noAcc.classList.add("cursor-pointer", "accessoryBtn");
+            noAcc.setAttribute("data-glass", '00');
+            noAcc.src = './images/1_Icon.png';
+    
+            noAcc.addEventListener('mouseenter', () => {
+                setGlass(selChar, selCharID, currentPose, '00', accessories);
+            });
+    
+            noAcc.addEventListener('mouseleave', () => {
+                setGlass(selChar, selCharID, currentPose, '00', accessories);
+            });
+    
+            noAcc.addEventListener('click', () => {
+                playAudio(btnSfx);
+                currentAccessory = '69';
+                setGlass(selChar, selCharID, currentPose, currentAccessory, accessories);
+            });
+
+            glassesDiv.appendChild(noAcc);
+        }
+    }
 
     startParticles();
 });
