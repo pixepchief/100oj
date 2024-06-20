@@ -1,6 +1,6 @@
 <h1 align="center" id="title">100% Orange Juice Avatar Creator</h1>
 
-<p align="center"><img src="https://cdn.discordapp.com/attachments/554291039175835658/1246886392894586983/logo.png?ex=665e04f2&amp;is=665cb372&amp;hm=73944a8793c88b3f90917ba1dce103aba4be2684ea619a0ec37217c6326d6df4&amp;" alt="project-image"></p>
+<p align="center"><img src="./images/logo.png" alt="project-image"></p>
 
 <p id="description">100% Orange Juice Avatar Creator is a fully online avatar creator in your web browser that tries to accurately recreate the same avatar info from the game 100% Orange Juice allowing you to try all single possible outfit combinations for all your favorite characters without needing to spend a single orange or a star!</p>
 
@@ -10,7 +10,7 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://cdn.discordapp.com/attachments/554291039175835658/1246887357161017364/image.png?ex=665e05d7&amp;is=665cb457&amp;hm=8d1038273d6e29771e0937d946b1c9c65537a3dbfd30c663e435fcf7c37489c1&amp;" alt="project-screenshot" w>
+<img src="./images/Citrus_Allergy.png" alt="project-screenshot" w>
 
   
 <h2>🧐 Features</h2>
