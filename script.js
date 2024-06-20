@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const posesBtnDiv = document.getElementById("poses");
     const secondaryChar = document.getElementById("secondaryChar");
     const characterSwitchBtn = document.getElementById("headBtn");
+    const currentCharSec = document.getElementById("currentCharSec");
 
     const btnSfx = "./audio/se_DECISION.WAV";
     const song = new Audio('./audio/mainMenu.mp3');
@@ -33,6 +34,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentGlass = '00';
     let currentSecondary = 'Mimyuu';
     let isSecondary = false;
+    let charSecCloth = false;
+    let currentSecondColor = '00';
 
     characterSwitchBtn.addEventListener("click", () => {
         if (currentSecondary == 'Mimyuu') {
@@ -68,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setupCharacterSelection(charIds, characters, accessories);
         setupColorButtons(characters, accessories);
         updateAccessoryButtons(characters, accessories);
+        setupCharSec(characters, accessories);
         updatePoseButtons(characters, accessories);
         updateGlassesButtons(characters, accessories);
         setInitialCharacter(charIds, characters, accessories);
@@ -79,6 +83,45 @@ document.addEventListener("DOMContentLoaded", function () {
         sfxBtn.addEventListener("click", toggleSfx);
         changeCharBtn.addEventListener("click", () => playAudio(btnSfx));
         windowBtns.forEach(button => button.addEventListener("click", toggleWindow));
+    }
+    
+    function setupCharSec(characters, accessories) {
+        const charFiles = characters[selChar]["Files"];
+        const regex = new RegExp('[A-Za-z0-9]+_[A-Za-z0-9]+_00_00\.png');
+
+        const matchingChars = charFiles.filter(char => regex.test(char));
+        if (matchingChars.length !== 0) {
+            charSecCloth = true;
+            document.getElementById("clothes2Btn").classList.remove("opacity-50");
+            for (let i = 0; i < 6; i++) {
+                const keyword = matchingChars[0].split('_')[1];
+                console.log(keyword);
+                const img = document.createElement('img');
+                const twoDigit = String(i).padStart(2, '0');
+                img.classList.add("cursor-pointer", "color2Btn");
+                img.setAttribute("data-color2", twoDigit);
+                img.src = `./images/${i + 1}_Icon.png`;
+        
+                img.addEventListener('mouseenter', () => {
+                    setSecondColor(selChar, selCharID, currentPose, twoDigit, keyword);
+                });
+        
+                img.addEventListener('mouseleave', () => {
+                    setSecondColor(selChar, selCharID, currentPose, currentSecondColor, keyword);
+                });
+        
+                img.addEventListener('click', () => {
+                    playAudio(btnSfx);
+                    currentSecondColor = twoDigit;
+                    setSecondColor(selChar, selCharID, currentPose, currentSecondColor, keyword);
+                });
+        
+                document.getElementById("clothes2").appendChild(img);
+            }
+        } else {
+            charSecCloth = false;
+            document.getElementById("clothes2Btn").classList.add("opacity-50");
+        }
     }
 
     function setupSecondary(isSecondary) {
@@ -114,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 setGlass(selChar, selCharID, currentPose, currentGlass, accessories);
                 setupColorButtons(characters, accessories);
                 setupSecondary(isSecondary);
+                setupCharSec(characters, accessories);
                 updateAccessoryButtons(characters, accessories);
                 updatePoseButtons(characters, accessories);
                 updateGlassesButtons(characters, accessories);
@@ -185,6 +229,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function toggleWindow(event) {
+        const windowID = event.target.id.replace("Btn", "");
+        if (windowID === 'clothes2' && !charSecCloth) {
+            return;
+        }
         playAudio(btnSfx);
         const targetWindow = document.getElementById(event.target.getAttribute("data-window"));
         const isTargetWindowOpen = targetWindow.classList.contains("flex");
@@ -214,6 +262,10 @@ document.addEventListener("DOMContentLoaded", function () {
             currentChar.src = exists ? mainPath : fallbackPath;
         });
     }    
+
+    function setSecondColor(charName, charID, pose, colorID, keyword) {
+        const mainPath = `./characters/${charName}/${charID}_${keyword}_${pose}`
+    }
 
     function setAccessory(charName, charId, pose, accessoryID, accessories) {
         pose = String(pose).padStart(2, '0');

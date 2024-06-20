@@ -61,14 +61,15 @@
         </div>
         <img class = "w-1/12 animate-spin" src="https://cdn.discordapp.com/attachments/1207037675349999676/1246273221565743134/orange-fruit-cut-in-half-isolated-on-white-background-clipping-path-R0J43D.jpg?ex=665bc9e2&is=665a7862&hm=8b7d50740398c2271160079eace1395579d9b9db1f606f6f65c6b104d692538d&" alt="">
     </div>
-    <div class = "fixed h-full w-54 flex flex-col items-center justify-center">
-        <a class = "bg-white w-full text-center p-4 rounded-r-3xl border-[6px] border-t-4 border-b-4 border-l-0 text-[#606060] btnClass border-[#FFBE64] text-2xl" >Avatar Creator</a>
+    <div class = "fixed h-full w-54 flex flex-col items-center justify-center gap-2 z-50">
+        <a class = "bg-white w-full text-center p-4 rounded-r-3xl border-[6px] border-t-4 border-b-4 border-l-0 text-[#606060] btnClass border-[#FFBE64] text-2xl relative right-2 hover:right-0 cursor-pointer" >Avatar Creator</a>
+        <a class = "bg-white w-full text-center p-4 rounded-r-3xl border-[6px] border-t-4 border-b-4 border-l-0 text-[#606060] btnClass border-[#FFBE64] text-2xl brightness-75 relative right-2 hover:right-0 cursor-pointer" >Deck Builder</a>
     </div>
-    <div class = "fixed w-full h-full pb-8 flex flex-col justify-end gap-2">
+    <div class = "fixed w-full h-full pb-8 flex flex-col justify-end gap-2 z-[40]">
         <p class = "px-4 bg-black text-white text-xl bg-opacity-30 rounded-r-3xl py-1 forceBtn w-fit">Change how your avatar looks.</p>
         <p class = "px-4 bg-black text-white text-sm bg-opacity-30 rounded-r-3xl py-1 forceBtn w-fit">Created by @PixepChief | Alpha</p>
     </div>
-    <div class = "fixed w-full h-full pb-8 flex flex-col justify-end items-end">
+    <div class = "fixed w-full h-full pb-8 flex flex-col justify-end items-end z-[40]">
         <div class = "flex flex-row-reverse bg-white rounded-3xl border-4 border-[#FFBE64] btnClass mr-8 p-4 w-1/4 justify-between items-center">
             <div class = "w-full">
                 <img src="./images/suguri46_00_04.png" alt="">
@@ -79,7 +80,7 @@
             </div>
         </div>
     </div>
-    <div class = "w-full h-full fixed flex items-center justify-center">
+    <div class = "w-full h-full fixed flex items-center justify-center z-[40]">
         <div class = "bg-white rounded-3xl border-4 border-[#FFBE64] btnClass p-4">
             <div class = "w-full flex justify-center relative top-4">
                 <div class = "relative origin-bottom bg-white animate-jello-horizontal">
@@ -87,6 +88,7 @@
                     <img id = "glassOverlay" class = "absolute z-[47]" src="" alt="">
                     <img id = "accessory" class = "absolute z-[45]" src="" alt="">
                     <img id = "currentChar" class = "z-[15] bg-transparent h-[256px] w-[256px] relative" src="./images/marc_00_00.png" alt="">
+                    <!-- <img id = "currentCharSec" class = "z-[14] bg-transparent h-[256px] w-[256px] absolute top-0" src="" alt=""> -->
                     <img id = "secondaryChar" class = "z-[15] bg-transparent top-0 right-12 absolute brightness-50" src="" alt="">
                 </div>
                 <div class = "grid grid-cols-2 grid-rows-4 gap-3 h-fit z-50">
@@ -100,7 +102,10 @@
                         <div id = "clothes1" class = "z-50 hidden w-8/12 gap-1 px-4 -top-12 ml-4 flex-row flex-wrap absolute btnClass bg-white rounded-3xl border-4 border-[#FFBE64] p-2">
                         </div>
                     </div>
-                    <img class = "cursor-pointer opacity-50" src="./images/UnitColorsIcon2.png" alt="">
+                    <div>
+                        <img id = "clothes2Btn" class = "cursor-pointer opacity-50 windowBtn" data-window = "clothes2" src="./images/UnitColorsIcon2.png" alt="">
+                        <div id = "clothes2" class = "z-50 hidden w-8/12 gap-1 px-4 -top-12 ml-4 flex-row flex-wrap absolute btnClass bg-white rounded-3xl border-4 border-[#FFBE64] p-2"></div>
+                    </div>
                     <img class = "cursor-pointer opacity-50" src="./images/HairColorsIcon.png" alt="">
                     <div>
                         <img class = "cursor-pointer windowBtn" data-window = "accessoriesDiv" src="./images/AccessoriesIcon.png" alt="">
