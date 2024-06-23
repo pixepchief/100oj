@@ -401,7 +401,7 @@
     },
     {
         "name": "Bloodlust",
-        "picture": "/w/images/Images/100OrangeJuice_images/1/1/Bloodlust.png",
+        "picture": "/w/images/Images/100OrangeJuice_images/1/11/Bloodlust.png",
         "rarity": "Rare",
         "limit": "1",
         "cost": "0",
@@ -1138,15 +1138,6 @@
         "level": "3",
         "pack": "Acceleration Pack",
         "type": "Boost"
-    },
-    {
-        "name": "",
-        "rarity": "",
-        "limit": "",
-        "cost": "",
-        "level": "",
-        "pack": "",
-        "type": ""
     },
     {
         "name": "Encore",

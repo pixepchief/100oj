@@ -1,19 +1,26 @@
 fetch('cards.json')
     .then(response => response.json())
     .then(data => {
-        const boostCards = data.filter(card => card.type === "Boost");
+        const uniqueCards = Array.from(new Set(data.map(card => card.name)))
+            .map(name => data.find(card => card.name === name));
 
-        const uniqueBoostCards = Array.from(new Set(boostCards.map(card => card.name)))
-            .map(name => boostCards.find(card => card.name === name));
+        const typeOrder = ["Boost", "Battle", "Trap", "Event", "Gift"];
+
+        const sortedCards = uniqueCards.sort((a, b) => {
+            if (a.type === b.type) {
+                return a.name.localeCompare(b.name);
+            }
+            return typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type);
+        });
 
         const cardsPerPage = 14;
         let currentPage = 1;
-        const totalPages = Math.ceil(uniqueBoostCards.length / cardsPerPage);
+        const totalPages = Math.ceil(sortedCards.length / cardsPerPage);
 
         function displayCards(page) {
             const start = (page - 1) * cardsPerPage;
             const end = start + cardsPerPage;
-            const cardsToDisplay = uniqueBoostCards.slice(start, end);
+            const cardsToDisplay = sortedCards.slice(start, end);
 
             const cardsContainer = document.getElementById('cards');
             cardsContainer.innerHTML = '';
