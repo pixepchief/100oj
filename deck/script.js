@@ -23,7 +23,7 @@ fetch('cards.json')
         const placeholderImage = 'https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/2/2d/Back_0.png';
 
         function encodeDeck(deck) {
-            return deck.map(card => card ? card.name : '').join(',');
+            return deck.map(card => card ? card.name.replace(/\s+/g, '_') : '').join(',');
         }
 
         function decodeDeck(encodedDeck) {
