@@ -45,6 +45,7 @@ fetch('cards.json')
             const encodedDeck = urlParams.get('deck');
             deck = decodeDeck(encodedDeck);
             updateDeckDisplay();
+            updateMetaDescription(deck);
         }
 
         function updateDeckDisplay() {
@@ -116,6 +117,22 @@ fetch('cards.json')
             });
 
             document.getElementById('page-number').innerText = `${currentPage}/${totalPages}`;
+        }
+
+        function updateMetaDescription(deck) {
+            const ogDescriptionMeta = document.getElementById('ogDescriptionMeta');
+            const ogImageMeta = document.getElementById('ogImageMeta');
+            if (ogDescriptionMeta && ogImageMeta) {
+                const firstCard = deck.find(card => card !== null);
+                if (firstCard) {
+                    const deckDescription = deck.filter(card => card !== null).map(card => card.name).join(', ');
+                    ogDescriptionMeta.setAttribute('content', `A shared deck that contains the cards: ${deckDescription}`);
+                    ogImageMeta.setAttribute('content', `https://orangejuice.wiki/${firstCard.picture}`);
+                } else {
+                    ogDescriptionMeta.setAttribute('content', `An online deck builder for the game 100% Orange Juice, fully in your web browser!`);
+                    ogImageMeta.setAttribute('content', `https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/2/2d/Back_0.png`);
+                }
+            }
         }
 
         document.getElementById('prev-page').addEventListener('click', () => {
