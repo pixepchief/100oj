@@ -70,6 +70,12 @@ fetch('cards.json')
                 cardDiv.appendChild(cardDetails);
 
                 cardDiv.addEventListener('click', () => {
+                    const cardCount = deck.filter(deckCard => deckCard && deckCard.name === card.name).length;
+                    if (cardCount >= card.limit) {
+                        alert(`You cannot add more than ${card.limit} of this card.`);
+                        return;
+                    }
+
                     if (selectedCardIndex !== null) {
                         deck[selectedCardIndex] = card;
                         selectedCardIndex = null;
