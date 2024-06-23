@@ -52,7 +52,7 @@
     </script>
 </head>
 <body id = "tsparticles" class = "w-full h-screen">
-    <div class = "fixed mt-2 w-full h-12 bg-[#FFBE64] flex justify-between z-50">
+    <div class = "fixed mt-2 w-full h-12 bg-[#FFBE64] flex justify-between z-[20]">
         <div class = "flex flex-row gap-4 mx-4 items-center">
             <img title = "Yo" class = "w-2/12" src="./images/siteLogo.png" alt="">
             <a id = "musicOption" class = "text-white forceBtn hover:text-lg transition-all cursor-pointer">Music Disabled</a>
@@ -60,11 +60,11 @@
             <a id = "sfxBtn" class = "text-white forceBtn hover:text-lg transition-all cursor-pointer">SFX Enabled</a>
         </div>
     </div>
-    <div class = "fixed w-full h-full pb-8 flex flex-col justify-end gap-2 z-[40]">
-        <p class = "px-4 bg-black text-white text-xl bg-opacity-30 rounded-r-3xl py-1 forceBtn w-fit">Create a deck.</p>
-        <p class = "px-4 bg-black text-white text-sm bg-opacity-30 rounded-r-3xl py-1 forceBtn w-fit">Created by @PixepChief | Alpha</p>
+    <div class = "fixed w-full h-full pb-8 flex flex-col justify-end gap-2 z-[20]">
+        <p class = "px-4 bg-black text-white text-xl bg-opacity-30 rounded-r-3xl z-50 py-1 forceBtn w-fit">Create a deck.</p>
+        <p class = "px-4 bg-black text-white text-sm bg-opacity-30 rounded-r-3xl z-50 py-1 forceBtn w-fit">Created by @PixepChief | Alpha</p>
     </div>
-    <div class = "fixed w-fit h-5/6 pb-16 bg-white flex flex-col mt-48 w-11/12 rounded-r-3xl border-[6px] border-t-4 border-b-4 border-l-0 btnClass border-[#FFCF94]">
+    <div class = "fixed w-fit h-5/6 pb-16 bg-white flex flex-col mt-48 w-11/12 z-[40] rounded-r-3xl border-[6px] border-t-4 border-b-4 border-l-0 btnClass border-[#FFCF94]">
         <div class = "flex flex-row w-full h-full">
             <div class = "bg-[#FFCF94] p-8 mr-2 relative">
                 <div class = "rotate-[270deg] right-0 left-2 mt-4 absolute">
@@ -88,14 +88,14 @@
                 <img src="./cards/Ambush.png" alt="">
                 <img src="./cards/Ambush.png" alt="">
             </div>
-            <div class = "bg-[#FFCF94] rounded-r-3xl relative h-full px-2 flex flex-col gap-4 justify-center">
-                <a href="#" class = "border-[3px] border-[#5E5F5E] py-8 py-3 bg-white rounded-t-3xl text-center">▲</a>
-                <p>1/9</p>
-                <a href="#" class = "border-[3px] border-[#5E5F5E] py-8 py-3 bg-white rounded-b-3xl text-center">▼</a>
+            <div class = "bg-[#FFCF94] z-50 rounded-r-3xl relative h-full px-2 flex flex-col gap-4 justify-center">
+                <div id = "prev-page" class = "z-50 border-[3px] border-[#5E5F5E] py-8 py-3 bg-white rounded-t-3xl text-center">▲</div>
+                <p id = "page-number">1/9</p>
+                <div id = "next-page" class = "z-50 border-[3px] border-[#5E5F5E] py-8 py-3 bg-white rounded-b-3xl text-center">▼</div>
             </div>
         </div>
     </div>
     <script src="./particles.js"></script>
-    <!-- <script src="./script.js"></script> -->
+    <script src="./script.js"></script>
 </body>
 </html>
