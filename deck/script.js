@@ -17,7 +17,7 @@ fetch('cards.json')
         let currentPage = 1;
         const totalPages = Math.ceil(sortedCards.length / cardsPerPage);
 
-        let deck = Array(7).fill(null);
+        let deck = Array(10).fill(null);
         let selectedCardIndex = null;
 
         const placeholderImage = 'https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/2/2d/Back_0.png'; // Placeholder image URL
