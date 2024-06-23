@@ -56,6 +56,19 @@
         <div class = "flex flex-row gap-4 mx-4 items-center">
             <img title = "Yo" class = "w-2/12" src="./images/siteLogo.png" alt="">
             <a href = "../" id = "musicOption" class = "text-white forceBtn hover:text-lg transition-all cursor-pointer">Back to Avatar Creator</a>
+            <a id = "generateLinkBtn" class = "text-white forceBtn hover:text-lg transition-all cursor-pointer">Generate Link</a>
+            <dialog id="generateLink" class="modal">
+                <div class="modal-box">
+                  <h3 class="text-lg font-bold">Your deck has been generated!</h3>
+                  <p class="py-4">Access this link anytime you want to look at this deck, or share it to your friends if you want to show them your cool deck making skills.</p>
+                  <input class = "w-full border-2 p-4" type="text" id = "generatedLink">
+                  <div class="modal-action">
+                    <form method="dialog">
+                      <button class="btn">Close</button>
+                    </form>
+                  </div>
+                </div>
+              /dialog>
         </div>
     </div>
     <div class = "fixed w-full h-full pb-8 flex flex-col justify-end gap-2 z-[20]">

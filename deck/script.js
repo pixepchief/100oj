@@ -20,7 +20,32 @@ fetch('cards.json')
         let deck = Array(10).fill(null);
         let selectedCardIndex = null;
 
-        const placeholderImage = 'https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/2/2d/Back_0.png'; // Placeholder image URL
+        const placeholderImage = 'https://orangejuice.wiki/w/images/Images/100OrangeJuice_images/2/2d/Back_0.png';
+
+        function encodeDeck(deck) {
+            return deck.map(card => card ? card.name : '').join(',');
+        }
+
+        function decodeDeck(encodedDeck) {
+            const cardNames = encodedDeck.split(',');
+            const decodedDeck = cardNames.map(name => sortedCards.find(card => card.name === name) || null);
+            return decodedDeck;
+        }
+
+        document.getElementById('generateLinkBtn').addEventListener('click', () => {
+            generateLink.showModal();
+            const encodedDeck = encodeDeck(deck);
+            const link = `${window.location.origin}${window.location.pathname}?deck=${encodedDeck}`;
+            const deckLinkInput = document.getElementById('generatedLink');
+            deckLinkInput.value = link;
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.has('deck')) {
+            const encodedDeck = urlParams.get('deck');
+            deck = decodeDeck(encodedDeck);
+            updateDeckDisplay();
+        }
 
         function updateDeckDisplay() {
             const deckContainer = document.getElementById('deck');
