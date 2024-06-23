@@ -25,10 +25,21 @@ fetch('cards.json')
             const cardsContainer = document.getElementById('cards');
             cardsContainer.innerHTML = '';
             cardsToDisplay.forEach(card => {
+                const cardDiv = document.createElement('div');
+                cardDiv.classList.add('relative');
+
                 const cardImg = document.createElement('img');
                 cardImg.src = `https://orangejuice.wiki/${card.picture}`;
                 cardImg.alt = card.name;
-                cardsContainer.appendChild(cardImg);
+                cardsContainer.appendChild(cardDiv);
+
+                cardDiv.appendChild(cardImg);
+
+                const cardDetails = document.createElement('a');
+                cardDetails.innerHTML = 'Details';
+                cardDetails.href = `https://orangejuice.wiki/wiki/${card.name}`;
+                cardDetails.className = 'absolute text-center w-full bottom-2 text-blue-500 underline';
+                cardDiv.appendChild(cardDetails);
             });
 
             document.getElementById('page-number').innerText = `${currentPage}/${totalPages}`;
