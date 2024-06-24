@@ -92,6 +92,7 @@ fetch('cards.json')
                 const cardDetails = document.createElement('a');
                 cardDetails.innerHTML = 'Details';
                 cardDetails.href = `https://orangejuice.wiki/wiki/${card.name}`;
+                cardDetails.target = '_blank';
                 cardDetails.className = 'absolute text-center w-full bottom-2 text-blue-500 underline';
                 cardDiv.appendChild(cardDetails);
 
