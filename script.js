@@ -507,4 +507,83 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     startParticles();
+
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+                console.log('Service Worker registered with scope:', registration.scope);
+            })
+            .catch(error => {
+                console.error('Service Worker registration failed:', error);
+            });
+    }
+
+    function getImagePaths(obj, path = '') {
+        let imagePaths = [];
+        if (obj.Files) {
+            obj.Files.forEach(file => {
+                imagePaths.push(`${path}/${file}`);
+            });
+        }
+        if (obj.Subdirectories) {
+            for (const key in obj.Subdirectories) {
+                imagePaths = imagePaths.concat(getImagePaths(obj.Subdirectories[key], `${path}/${key}`));
+            }
+        }
+        return imagePaths;
+    }
+
+    fetch('characters.json')
+            .then(response => response.json())
+            .then(characters => {
+                const imagePaths = [];
+                for (const key in characters) {
+                    imagePaths.push(...getImagePaths(characters[key], `characters/${key}`));
+                }
+
+
+                let loadedImages = 0;
+                const totalImages = imagePaths.length;
+
+                const progressElement = document.getElementById('progress');
+                const loadingBarElement = document.getElementById('loadingBar').firstElementChild;
+                const loadingScreenElement = document.getElementById('loadingScreen');
+
+                function updateProgress() {
+                    const progress = Math.round((loadedImages / totalImages) * 100);
+                    progressElement.textContent = `${progress}%`;
+                    loadingBarElement.style.width = `${progress}%`;
+                    if (progress === 100) {
+                        setTimeout(() => {
+                            loadingScreenElement.classList.add('fade-out');
+                            setTimeout(() => loadingScreenElement.style.display = 'none', 1000);
+                        }, 500);
+                    }
+                }
+
+                function loadImage(path) {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.src = path;
+                        img.onload = () => {
+                            loadedImages++;
+                            updateProgress();
+                            resolve();
+                        };
+                        img.onerror = reject;
+                    });
+                }
+
+                async function loadImages() {
+                    const promises = imagePaths.map(path => loadImage(path));
+                    try {
+                        await Promise.all(promises);
+                    } catch (error) {
+                        console.error('Error loading images', error);
+                    }
+                }
+
+                loadImages();
+            })
+            .catch(error => console.error('Error loading characters.json', error));
 });

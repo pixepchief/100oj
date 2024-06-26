@@ -50,3 +50,42 @@ a {
 .btnClass {
     box-shadow: 3px 3px rgba(66,66,66,0.5);
 }
+
+#loadingScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 1000;
+}
+#progress {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+#loadingBar {
+    width: 50%;
+    height: 20px;
+    background: #ddd;
+    position: relative;
+}
+#loadingBar div {
+    height: 100%;
+    width: 0;
+    background: #000;
+    transition: width 0.3s;
+}
+.fade-out {
+    animation: fadeOut 1s forwards;
+}
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
