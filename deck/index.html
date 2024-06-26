@@ -72,27 +72,34 @@
             <img class = "w-[200px] h-[200px] absolute -right-24 -bottom-16 animate-spin" src="../images/Citral.png" alt="">
         </div>
     </div>
-    <div class = "fixed w-full h-full pb-8 flex flex-col justify-end gap-2 z-[20]">
+    <div class = "fixed w-full h-full pb-4 flex flex-col justify-end gap-1 z-[200] pointer-events-none">
         <p class = "px-4 bg-black text-white text-xl bg-opacity-30 rounded-r-3xl z-50 py-1 forceBtn w-fit">Create a deck.</p>
         <p class = "px-4 bg-black text-white text-sm bg-opacity-30 rounded-r-3xl z-50 py-1 forceBtn w-fit">Created by @PixepChief | Alpha</p>
     </div>
-    <div class = "fixed w-fit h-5/6 pb-16 flex flex-col mt-24 w-11/12 z-[40]">
-        <div id = "deck" class = "flex flex-row w-1/2 bg-[#FFCF94]">
-            <img src="./cards/Ambush.png" alt="">
-            <img src="./cards/Ambush.png" alt="">
-            <img src="./cards/Ambush.png" alt="">
-            <img src="./cards/Ambush.png" alt="">
-            <img src="./cards/Ambush.png" alt="">
-            <img src="./cards/Ambush.png" alt="">
-            <img src="./cards/Ambush.png" alt="">
-        </div>
-        <div class = "flex flex-row bg-white w-full h-full rounded-r-3xl border-[6px] border-t-4 border-b-4 border-l-0 btnClass border-[#FFCF94]">
-            <div class = "bg-[#FFCF94] p-8 mr-2 relative">
-                <div class = "rotate-[270deg] right-0 left-2 mt-4 absolute">
-                    <a href="#" class = "bg-[#A5FF94] px-6 py-1 rounded-full border-[#B5B876] border-r-2 border-l-2">Type</a>
+    <div class = "fixed w-fit h-5/6 pb-16 px-3 gap-1.5 flex flex-col mt-20 w-11/12 z-[40]">
+        <div class = "flex flex-row w-1/2 bg-white rounded-2xl border-[6px] border-y-4 border-l-0 btnClass border-[#FFCF94]">
+            <div class = "bg-[#FFCF94] pl-3 pr-6 mr-1.5 rounded-l-xl relative flex flex-col justify-center">
+                <div class = "rotate-[270deg] right-3 left-4 mt-12 absolute">
+                    <a href="#" class = "text-2xl text-gray-900/65">Deck</a>
                 </div>
             </div>
-            <div id = "cards" class = "w-fit h-fit gap-1 bg-white grid grid-cols-7 grid-rows-2 pr-[100px]">
+            <div id = "deck" class = "flex flex-row gap-0.5 pr-3 py-1">
+                <img src="./cards/Ambush.png" alt="">
+                <img src="./cards/Ambush.png" alt="">
+                <img src="./cards/Ambush.png" alt="">
+                <img src="./cards/Ambush.png" alt="">
+                <img src="./cards/Ambush.png" alt="">
+                <img src="./cards/Ambush.png" alt="">
+                <img src="./cards/Ambush.png" alt="">
+            </div>
+        </div>
+        <div class = "flex flex-row bg-white w-full h-full rounded-3xl border-[6px] border-y-4 border-l-0 btnClass border-[#FFCF94]">
+            <div class = "bg-[#FFCF94] pl-3 pr-6 mr-1.5 rounded-l-2xl relative flex flex-col justify-center">
+                <div class = "rotate-[270deg] right-4 left-4 mt-20 absolute">
+                    <a href="#" class = "bg-[#A5FF94] px-6 rounded-full border-[#B5B876] border-r-2 border-l-2">Type</a>
+                </div>
+            </div>
+            <div id = "cards" class = "w-fit h-fit gap-1.5 bg-white grid grid-cols-7 grid-rows-2 py-1.5 pr-[100px]">
                 <img src="./cards/Ambush.png" alt="">
                 <img src="./cards/Ambush.png" alt="">
                 <img src="./cards/Ambush.png" alt="">
@@ -108,10 +115,10 @@
                 <img src="./cards/Ambush.png" alt="">
                 <img src="./cards/Ambush.png" alt="">
             </div>
-            <div class = "bg-[#FFCF94] z-50 rounded-r-3xl relative h-full px-2 flex flex-col gap-4 justify-center">
-                <div id = "prev-page" class = "z-50 border-[3px] border-[#5E5F5E] py-8 py-3 bg-white rounded-t-3xl text-center">▲</div>
+            <div class = "bg-[#FFCF94] z-50 rounded-r-2xl relative h-full pl-2.5 pr-1 flex flex-col gap-4 justify-center">
+                <div id = "prev-page" class = "z-50 border-[3px] border-[#5E5F5E] py-8 bg-white rounded-t-3xl text-center select-none">▲</div>
                 <p id = "page-number">1/9</p>
-                <div id = "next-page" class = "z-50 border-[3px] border-[#5E5F5E] py-8 py-3 bg-white rounded-b-3xl text-center">▼</div>
+                <div id = "next-page" class = "z-50 border-[3px] border-[#5E5F5E] py-8 bg-white rounded-b-3xl text-center select-none">▼</div>
             </div>
         </div>
     </div>
