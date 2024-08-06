@@ -2,6 +2,8 @@
 
 <p align="center"><img src="./images/logo.png" alt="project-image"></p>
 
+<p align = "center">**Project on hold for a bit**</p>
+<p>Due to school and whatnot, the project was paused for months with no updates, but I'll be back after a few weeks and I'll continue work on the project, as it's a personal goal of mine :)</p>
 <p id="description">100% Orange Juice Avatar Creator is a fully online avatar creator in your web browser that tries to accurately recreate the same avatar info from the game 100% Orange Juice allowing you to try all single possible outfit combinations for all your favorite characters without needing to spend a single orange or a star!</p>
 
 <h2>🚀 Demo</h2>
